@@ -118,7 +118,10 @@ boolean subpapplay;
 
         color.setBackground(new java.awt.Color(0, 0, 0));
         color.setForeground(new java.awt.Color(255, 255, 255));
+        color.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texteditor/letra.png"))); // NOI18N
         color.setText("A");
+        color.setBorderPainted(false);
+        color.setContentAreaFilled(false);
         color.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 colorMouseClicked(evt);
@@ -220,12 +223,13 @@ boolean subpapplay;
         jLabel12.setBackground(new java.awt.Color(0, 51, 153));
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Word3.png"))); // NOI18N
         jLabel12.setText("WORD");
         jLabel12.setOpaque(true);
 
         crearArchivo.setBackground(new java.awt.Color(255, 255, 255));
         crearArchivo.setForeground(new java.awt.Color(0, 0, 0));
-        crearArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texteditor/guardar.png"))); // NOI18N
+        crearArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texteditor/save.png"))); // NOI18N
         crearArchivo.setBorderPainted(false);
         crearArchivo.setContentAreaFilled(false);
         crearArchivo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -236,7 +240,7 @@ boolean subpapplay;
 
         abrirArchivo.setBackground(new java.awt.Color(255, 255, 255));
         abrirArchivo.setForeground(new java.awt.Color(0, 0, 0));
-        abrirArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texteditor/abrir.png"))); // NOI18N
+        abrirArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texteditor/filechooser.png"))); // NOI18N
         abrirArchivo.setBorderPainted(false);
         abrirArchivo.setContentAreaFilled(false);
         abrirArchivo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -253,7 +257,7 @@ boolean subpapplay;
                 .addContainerGap()
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(crearArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(crearArchivo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(abrirArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -262,12 +266,12 @@ boolean subpapplay;
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(abrirArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(crearArchivo)
-                    .addComponent(abrirArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(crearArchivo, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -296,8 +300,8 @@ boolean subpapplay;
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(color, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(color, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -333,8 +337,8 @@ boolean subpapplay;
                                     .addComponent(jLabel2)
                                     .addComponent(tamaño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(19, 19, 19)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
