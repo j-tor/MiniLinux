@@ -540,22 +540,23 @@ public class Inicio extends javax.swing.JFrame {
 
     private void ItunesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItunesActionPerformed
         // TODO add your handling code here:
-//        player.PlayerMemo itunes = new PlayerMemo();
-//        itunes.setVisible(true);
-//                paneldeapps.setVisible(false);
-
-    texteditor.texteditor word = new texteditor.texteditor();
-//        word.setVisible(true);
-
-        jDesktopPane1.add(word).setVisible(true);
+        player.PlayerMemo itunes = new PlayerMemo();
+        itunes.setVisible(true);
                 paneldeapps.setVisible(false);
+
+    
 
     }//GEN-LAST:event_ItunesActionPerformed
 
     private void Itunes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Itunes1ActionPerformed
         // TODO add your handling code here:
-        texteditor.Principal2 word = new texteditor.Principal2();
-//        word.setVisible(true);
+//        texteditor.Principal2 word = new texteditor.Principal2();
+//
+//        jDesktopPane1.add(word).setVisible(true);
+//                paneldeapps.setVisible(false);
+                
+       texteditor.texteditor word = new texteditor.texteditor();
+
 
         jDesktopPane1.add(word).setVisible(true);
                 paneldeapps.setVisible(false);
