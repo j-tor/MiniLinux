@@ -207,6 +207,7 @@ public class Inicio extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 760, 1530, 50));
 
+        jDesktopPane1.setBackground(new java.awt.Color(0, 102, 204));
         jDesktopPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jDesktopPane1MouseClicked(evt);
