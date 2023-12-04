@@ -5,6 +5,7 @@
 package linux;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Event;
 import java.awt.PopupMenu;
@@ -35,44 +36,45 @@ import visorimagenes.Visor;
 public class Inicio extends javax.swing.JFrame {
     private FileManager fileManagerInstance;
       visorimagenes.Visor casa;
-      JPopupMenu popupMenu = new JPopupMenu();
+      JPopupMenu popupMenuUser = new JPopupMenu();
+      JPopupMenu popupMenuoff = new JPopupMenu();
 
     /**
      * Creates new form 
      */
     public Inicio() {
         initComponents();
-        JMenuItem copyItem = new JMenuItem("Copiar");
-        JMenuItem cutItem = new JMenuItem("Cortar");
-        JMenuItem pasteItem = new JMenuItem("Pegar");
-        JMenuItem rename = new JMenuItem("Renombrar");
-        JMenuItem refreshyep = new JMenuItem("Refrescar");
-        JMenuItem createfile = new JMenuItem("Nuevo Archivo");
-        JMenuItem createfolder = new JMenuItem("Nuevo Folder");
-        JMenuItem organizar = new JMenuItem("Organizar");
-        JMenuItem sortName = new JMenuItem("Ver por Nombre");
-        JMenuItem sortDate = new JMenuItem("Ver por Fecha");
-        JMenuItem sortType = new JMenuItem("Ver por Tipo");
-        JMenuItem sortSize = new JMenuItem("Ver por Tamaño");
-        popupMenu.add(copyItem);
-        popupMenu.add(cutItem);
-        popupMenu.add(pasteItem);
-        popupMenu.add(rename);
-        popupMenu.add(refreshyep);
-        popupMenu.add(createfile);
-        popupMenu.add(createfolder);
-        popupMenu.add(organizar);
-        popupMenu.add(sortName);
-        popupMenu.add(sortDate);
-        popupMenu.add(sortType);
-        popupMenu.add(sortSize);
-                paneldeapps.setVisible(false);
-                Calendario.setVisible(false);
+        
+        JMenuItem CreateUser = new JMenuItem("Crear Usuario");
+        JMenuItem DeletUser = new JMenuItem("Eliminar Usuario");
+        JMenuItem EditUser = new JMenuItem("Editar Usuario");
+        
+        popupMenuUser.add(CreateUser);
+        popupMenuUser.add(DeletUser);
+        popupMenuUser.add(EditUser);
+        popupMenuUser.setBackground(Color.GRAY);
+        
+        JMenuItem off = new JMenuItem("Apagar");
+        JMenuItem cerrarsesion = new JMenuItem("Cerrar Sesion");
+        
+        
+        
+        popupMenuoff.add(off);
+        popupMenuoff.add(cerrarsesion);     
+        popupMenuoff.setBackground(Color.GRAY);
+  
+        paneldeapps.setVisible(false);
+        Calendario.setVisible(false);
                
-                casa = new Visor();
-
-                
-                timer.start();                 
+        casa = new Visor();       
+        timer.start();   
+        
+        off.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
 
 
     }
@@ -87,6 +89,8 @@ public class Inicio extends javax.swing.JFrame {
         fechainicio.setText(fechaFormateada);
     }
 });
+    
+    
     
     
 
@@ -493,6 +497,11 @@ public class Inicio extends javax.swing.JFrame {
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/turn.png"))); // NOI18N
         jButton5.setBorderPainted(false);
         jButton5.setContentAreaFilled(false);
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton5MouseClicked(evt);
+            }
+        });
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -752,7 +761,9 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-       System.exit(0);
+//        popupMenuoff.setVisible(true);
+//        popupMenuoff.show(evt.getComponent(), evt.getX(), evt.getY());
+       
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jDesktopPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDesktopPane1MouseClicked
@@ -763,10 +774,16 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
         // TODO add your handling code here:
-        popupMenu.setVisible(true);
-        popupMenu.setAlignmentX(CENTER_ALIGNMENT);
+        popupMenuUser.setVisible(true);
+        popupMenuUser.show(evt.getComponent(), evt.getX(), evt.getY());
         
     }//GEN-LAST:event_jButton4MouseClicked
+
+    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+        // TODO add your handling code here:
+        popupMenuoff.setVisible(true);
+        popupMenuoff.show(evt.getComponent(), evt.getX(), evt.getY());
+    }//GEN-LAST:event_jButton5MouseClicked
 
   
    
@@ -805,7 +822,7 @@ public class Inicio extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -828,6 +845,8 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JCalendar Calendario;

@@ -85,7 +85,7 @@ public class Imagenes extends javax.swing.JInternalFrame {
                 .addGap(10, 10, 10)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
                 .addContainerGap())
@@ -104,8 +104,8 @@ public class Imagenes extends javax.swing.JInternalFrame {
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(206, 206, 206)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 213, Short.MAX_VALUE)))
+                                .addComponent(jButton2)))
+                        .addGap(0, 201, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -118,19 +118,59 @@ public class Imagenes extends javax.swing.JInternalFrame {
         if (currentIndex < 0) {
             currentIndex = imageFiles.length - 1;
         }
-        ImageIcon newIcon = new ImageIcon(imageFiles[currentIndex].getPath());
+//        ImageIcon newIcon = new ImageIcon(imageFiles[currentIndex].getPath());
+//        jLabel1.setIcon(newIcon);
+         // Obtener la imagen original
+           // Obtener la imagen original
+        ImageIcon originalIcon = new ImageIcon(imageFiles[currentIndex].getPath());
+        Image originalImage = originalIcon.getImage();
+
+        // Obtener el tamaño del JLabel
+        int labelWidth = jLabel1.getWidth();
+        int labelHeight = jLabel1.getHeight();
+
+        // Escalar la imagen al tamaño del JLabel
+        Image scaledImage = originalImage.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+
+        // Crear un nuevo ImageIcon con la imagen escalada
+        ImageIcon newIcon = new ImageIcon(scaledImage);
+
+        // Establecer el nuevo ImageIcon en el JLabel
         jLabel1.setIcon(newIcon);
         
-//         newIcon.ggetScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
+       
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+//        currentIndex++;
+//        if (currentIndex >= imageFiles.length) {
+//            currentIndex = 0;
+//        }
+//        ImageIcon newIcon = new ImageIcon(imageFiles[currentIndex].getPath());
+//        jLabel1.setIcon(newIcon);
+
         currentIndex++;
         if (currentIndex >= imageFiles.length) {
             currentIndex = 0;
         }
-        ImageIcon newIcon = new ImageIcon(imageFiles[currentIndex].getPath());
+
+         // Obtener la imagen original
+           // Obtener la imagen original
+        ImageIcon originalIcon = new ImageIcon(imageFiles[currentIndex].getPath());
+        Image originalImage = originalIcon.getImage();
+
+        // Obtener el tamaño del JLabel
+        int labelWidth = jLabel1.getWidth();
+        int labelHeight = jLabel1.getHeight();
+
+        // Escalar la imagen al tamaño del JLabel
+        Image scaledImage = originalImage.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+
+        // Crear un nuevo ImageIcon con la imagen escalada
+        ImageIcon newIcon = new ImageIcon(scaledImage);
+
+        // Establecer el nuevo ImageIcon en el JLabel
         jLabel1.setIcon(newIcon);
     }//GEN-LAST:event_jButton1ActionPerformed
 

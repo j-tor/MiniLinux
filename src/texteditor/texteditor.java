@@ -212,6 +212,8 @@ boolean subpapplay;
         jButton5.setBackground(new java.awt.Color(255, 255, 255));
         jButton5.setForeground(new java.awt.Color(0, 0, 0));
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/texteditor/pastes.png"))); // NOI18N
+        jButton5.setBorderPainted(false);
+        jButton5.setContentAreaFilled(false);
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -424,17 +426,25 @@ boolean subpapplay;
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
 
         try {
+            
+
+            
 
             if (fondoapply) {
+                
                 fondoapply=false;
                 System.out.println("no aplicado");
                 StyleConstants.setBackground(estilo, Color.white);
                 doc.setCharacterAttributes(panel.getSelectionStart(), panel.getSelectionEnd() - panel.getSelectionStart(), panel.getStyle("n"), true);
 
             } else {
+                
                 fondoapply=true;
                 System.out.println("aplicado");
-                StyleConstants.setBackground(estilo, Color.YELLOW);
+                StyleConstants.setBackground(estilo,
+                    JColorChooser.showDialog(this,
+                            "Seleccione Color", Color.yellow));
+//                StyleConstants.setBackground(estilo, Color.YELLOW);
                 doc.setCharacterAttributes(panel.getSelectionStart(), panel.getSelectionEnd() - panel.getSelectionStart(), panel.getStyle("n"), true);
 
             }
