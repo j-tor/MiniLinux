@@ -117,7 +117,7 @@
     <Component class="javax.swing.JButton" name="btnadd">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagenes/iconfinder_add_126583.png"/>
+          <Image iconType="3" name="/icons/iconfinder_add_126583.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="ADD"/>
       </Properties>
@@ -128,7 +128,7 @@
     <Component class="javax.swing.JButton" name="btnremove">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagenes/iconfinder_remove-rounded_383082.png"/>
+          <Image iconType="3" name="/icons/iconfinder_remove-rounded_383082.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="REMOVE"/>
       </Properties>
@@ -139,7 +139,7 @@
     <Component class="javax.swing.JButton" name="btndown">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagenes/iconfinder_145_111066.png"/>
+          <Image iconType="3" name="/icons/iconfinder_145_111066.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="DOWN"/>
       </Properties>
@@ -150,7 +150,7 @@
     <Component class="javax.swing.JButton" name="btnsave">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagenes/iconfinder_save_326688.png"/>
+          <Image iconType="3" name="/icons/iconfinder_save_326688.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="SAVE"/>
       </Properties>
@@ -161,7 +161,7 @@
     <Component class="javax.swing.JButton" name="btnup">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagenes/iconfinder_arrow-up-thick_216098.png"/>
+          <Image iconType="3" name="/icons/iconfinder_arrow-up-thick_216098.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="UP"/>
       </Properties>
@@ -172,7 +172,7 @@
     <Component class="javax.swing.JButton" name="btnopen">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagenes/iconfinder_folder-open_1608888.png"/>
+          <Image iconType="3" name="/icons/iconfinder_folder-open_1608888.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="OPEN"/>
       </Properties>
@@ -202,7 +202,7 @@
     <Component class="javax.swing.JButton" name="btnprevius">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagenes/iconfinder_skip-previous_326509.png"/>
+          <Image iconType="3" name="/icons/iconfinder_skip-previous_326509.png"/>
         </Property>
       </Properties>
       <Events>
@@ -212,7 +212,7 @@
     <Component class="javax.swing.JButton" name="btnplay">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagenes/iconfinder_play-arrow_326577.png"/>
+          <Image iconType="3" name="/icons/iconfinder_play-arrow_326577.png"/>
         </Property>
       </Properties>
       <Events>
@@ -222,7 +222,7 @@
     <Component class="javax.swing.JButton" name="btnnext">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagenes/iconfinder_next_293690.png"/>
+          <Image iconType="3" name="/icons/iconfinder_next_293690.png"/>
         </Property>
       </Properties>
       <Events>
@@ -232,7 +232,7 @@
     <Component class="javax.swing.JButton" name="btnstop">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagenes/iconfinder_media-stop_216325.png"/>
+          <Image iconType="3" name="/icons/iconfinder_media-stop_216325.png"/>
         </Property>
       </Properties>
       <Events>

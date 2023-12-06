@@ -21,11 +21,44 @@ public class Imagenes extends javax.swing.JInternalFrame {
 
         imageFiles = imageFolder.listFiles();
 
-            ImageIcon initialIcon = new ImageIcon(imageFiles[currentIndex].getPath());
+        ImageIcon initialIcon = new ImageIcon(imageFiles[currentIndex].getPath());
         currentIndex = 0;
 
 
 
+    }
+    
+    public void setImageFile(File file) {
+        
+         
+             
+            if (file != null && file.isFile()) {
+            // Assuming you have a JLabel named imageLabel to display the image
+            ImageIcon icon = new ImageIcon(file.getAbsolutePath());            
+            Image originalImage = icon.getImage();
+
+            // Obtener el tamaño del JLabel
+            int labelWidth = jLabel1.getWidth();
+            int labelHeight = jLabel1.getHeight();
+
+            // Escalar la imagen al tamaño del JLabel
+            Image scaledImage = originalImage.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+
+            // Crear un nuevo ImageIcon con la imagen escalada
+            ImageIcon newIcon = new ImageIcon(scaledImage);
+
+            // Establecer el nuevo ImageIcon en el JLabel
+            jLabel1.setIcon(newIcon);
+            
+        } else {
+            // Handle the case where the file is not valid or not an image
+            System.out.println("Invalid or non-image file: " + file);
+        }
+        
+         
+    
+        
+        
     }
     
 //    public ImageIcon secticon(String m, byte[] image) {
@@ -185,7 +218,7 @@ public class Imagenes extends javax.swing.JInternalFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

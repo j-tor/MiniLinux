@@ -26,6 +26,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.Timer;
 import player.PlayerMemo;
+import player.Spotify;
 import visorimagenes.Imagenes;
 import visorimagenes.Visor;
 
@@ -44,6 +45,8 @@ public class Inicio extends javax.swing.JFrame {
      */
     public Inicio() {
         initComponents();
+                this.getRootPane().putClientProperty("apple.awt.draggableWindowBackground", true);
+
         
         JMenuItem CreateUser = new JMenuItem("Crear Usuario");
         JMenuItem DeletUser = new JMenuItem("Eliminar Usuario");
@@ -109,7 +112,7 @@ public class Inicio extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         fechainicio = new javax.swing.JLabel();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        pantalladeinicio = new javax.swing.JDesktopPane();
         paneldeapps = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         Menuinico = new javax.swing.JPanel();
@@ -211,10 +214,13 @@ public class Inicio extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 760, 1530, 50));
 
-        jDesktopPane1.setBackground(new java.awt.Color(0, 102, 204));
-        jDesktopPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+        pantalladeinicio.setBackground(new java.awt.Color(0, 102, 204));
+        pantalladeinicio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jDesktopPane1MouseClicked(evt);
+                pantalladeinicioMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pantalladeinicioMouseEntered(evt);
             }
         });
 
@@ -509,29 +515,29 @@ public class Inicio extends javax.swing.JFrame {
         });
         paneldeapps.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, 40, 40));
 
-        jDesktopPane1.setLayer(paneldeapps, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(Calendario, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        pantalladeinicio.setLayer(paneldeapps, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        pantalladeinicio.setLayer(Calendario, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pantalladeinicioLayout = new javax.swing.GroupLayout(pantalladeinicio);
+        pantalladeinicio.setLayout(pantalladeinicioLayout);
+        pantalladeinicioLayout.setHorizontalGroup(
+            pantalladeinicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pantalladeinicioLayout.createSequentialGroup()
                 .addGap(386, 386, 386)
                 .addComponent(paneldeapps, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 476, Short.MAX_VALUE)
                 .addComponent(Calendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(0, 374, Short.MAX_VALUE)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pantalladeinicioLayout.setVerticalGroup(
+            pantalladeinicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pantalladeinicioLayout.createSequentialGroup()
+                .addGap(0, 359, Short.MAX_VALUE)
+                .addGroup(pantalladeinicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(paneldeapps, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Calendario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        getContentPane().add(jDesktopPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1530, 760));
+        getContentPane().add(pantalladeinicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1530, 760));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -568,7 +574,7 @@ public class Inicio extends javax.swing.JFrame {
        texteditor.texteditor word = new texteditor.texteditor();
 
 
-        jDesktopPane1.add(word).setVisible(true);
+        pantalladeinicio.add(word).setVisible(true);
                 paneldeapps.setVisible(false);
 
     }//GEN-LAST:event_Itunes1ActionPerformed
@@ -578,8 +584,8 @@ public class Inicio extends javax.swing.JFrame {
 //        visorimagenes.Visor photo = new  visorimagenes.Visor();
         visorimagenes.Imagenes photo = new Imagenes();
 //        photo.setVisible(true);
-        jDesktopPane1.add(photo).setVisible(true);
-                paneldeapps.setVisible(false);
+        pantalladeinicio.add(photo).setVisible(true);
+        paneldeapps.setVisible(false);
                 
                 
 
@@ -592,7 +598,7 @@ public class Inicio extends javax.swing.JFrame {
 
 
     // Add the internal frame to the desktop pane
-    jDesktopPane1.add(cmd).setVisible(true);
+    pantalladeinicio.add(cmd).setVisible(true);
     
     // Hide the paneldeapps or perform any other necessary actions
     paneldeapps.setVisible(false);
@@ -619,7 +625,7 @@ public class Inicio extends javax.swing.JFrame {
                 fileManagerFrame.pack();
                 fileManagerFrame.setVisible(true);
             
-           jDesktopPane1.add(fileManagerFrame).setVisible(true);
+           pantalladeinicio.add(fileManagerFrame).setVisible(true);
                 
                 
           
@@ -663,6 +669,11 @@ public class Inicio extends javax.swing.JFrame {
 
     private void Itunes8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Itunes8ActionPerformed
         // TODO add your handling code here:
+         player.Spotify itunes = new Spotify();
+        itunes.setVisible(true);
+        itunes.toFront();
+        pantalladeinicio.add(itunes);
+               
                 paneldeapps.setVisible(false);
 
     }//GEN-LAST:event_Itunes8ActionPerformed
@@ -686,7 +697,7 @@ public class Inicio extends javax.swing.JFrame {
         // TODO add your handling code here:
         texteditor.Principal word = new texteditor.Principal();
 //        setInternalFrameCenterLocation(word);
-       jDesktopPane1.add(word).setVisible(true);
+       pantalladeinicio.add(word).setVisible(true);
 //        word.setVisible(true);
                 paneldeapps.setVisible(false);
         
@@ -766,11 +777,11 @@ public class Inicio extends javax.swing.JFrame {
        
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jDesktopPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDesktopPane1MouseClicked
+    private void pantalladeinicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pantalladeinicioMouseClicked
         // TODO add your handling code here:
          paneldeapps.setVisible(false);
         Calendario.setVisible(false);
-    }//GEN-LAST:event_jDesktopPane1MouseClicked
+    }//GEN-LAST:event_pantalladeinicioMouseClicked
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
         // TODO add your handling code here:
@@ -784,6 +795,12 @@ public class Inicio extends javax.swing.JFrame {
         popupMenuoff.setVisible(true);
         popupMenuoff.show(evt.getComponent(), evt.getX(), evt.getY());
     }//GEN-LAST:event_jButton5MouseClicked
+
+    private void pantalladeinicioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pantalladeinicioMouseEntered
+        // TODO add your handling code here:
+                 
+
+    }//GEN-LAST:event_pantalladeinicioMouseEntered
 
   
    
@@ -869,10 +886,10 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel paneldeapps;
+    public static javax.swing.JDesktopPane pantalladeinicio;
     // End of variables declaration//GEN-END:variables
 }

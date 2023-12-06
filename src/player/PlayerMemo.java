@@ -271,7 +271,7 @@ public class PlayerMemo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnadd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconfinder_add_126583.png"))); // NOI18N
+        btnadd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/iconfinder_add_126583.png"))); // NOI18N
         btnadd.setText("ADD");
         btnadd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -279,7 +279,7 @@ public class PlayerMemo extends javax.swing.JFrame {
             }
         });
 
-        btnremove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconfinder_remove-rounded_383082.png"))); // NOI18N
+        btnremove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/iconfinder_remove-rounded_383082.png"))); // NOI18N
         btnremove.setText("REMOVE");
         btnremove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -287,7 +287,7 @@ public class PlayerMemo extends javax.swing.JFrame {
             }
         });
 
-        btndown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconfinder_145_111066.png"))); // NOI18N
+        btndown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/iconfinder_145_111066.png"))); // NOI18N
         btndown.setText("DOWN");
         btndown.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -295,7 +295,7 @@ public class PlayerMemo extends javax.swing.JFrame {
             }
         });
 
-        btnsave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconfinder_save_326688.png"))); // NOI18N
+        btnsave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/iconfinder_save_326688.png"))); // NOI18N
         btnsave.setText("SAVE");
         btnsave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -303,7 +303,7 @@ public class PlayerMemo extends javax.swing.JFrame {
             }
         });
 
-        btnup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconfinder_arrow-up-thick_216098.png"))); // NOI18N
+        btnup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/iconfinder_arrow-up-thick_216098.png"))); // NOI18N
         btnup.setText("UP");
         btnup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -311,7 +311,7 @@ public class PlayerMemo extends javax.swing.JFrame {
             }
         });
 
-        btnopen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconfinder_folder-open_1608888.png"))); // NOI18N
+        btnopen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/iconfinder_folder-open_1608888.png"))); // NOI18N
         btnopen.setText("OPEN");
         btnopen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -321,28 +321,28 @@ public class PlayerMemo extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(jPlaylist);
 
-        btnprevius.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconfinder_skip-previous_326509.png"))); // NOI18N
+        btnprevius.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/iconfinder_skip-previous_326509.png"))); // NOI18N
         btnprevius.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnpreviusActionPerformed(evt);
             }
         });
 
-        btnplay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconfinder_play-arrow_326577.png"))); // NOI18N
+        btnplay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/iconfinder_play-arrow_326577.png"))); // NOI18N
         btnplay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnplayActionPerformed(evt);
             }
         });
 
-        btnnext.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconfinder_next_293690.png"))); // NOI18N
+        btnnext.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/iconfinder_next_293690.png"))); // NOI18N
         btnnext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnnextActionPerformed(evt);
             }
         });
 
-        btnstop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/iconfinder_media-stop_216325.png"))); // NOI18N
+        btnstop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/iconfinder_media-stop_216325.png"))); // NOI18N
         btnstop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnstopActionPerformed(evt);

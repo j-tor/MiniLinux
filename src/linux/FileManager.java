@@ -5,6 +5,7 @@ aleja
  */
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Desktop;
@@ -12,7 +13,9 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.nio.channels.FileChannel;
@@ -28,6 +31,7 @@ import javax.swing.event.*;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.*;
 import javax.swing.tree.*;
+import visorimagenes.Imagenes;
 
 
 public class FileManager {
@@ -83,6 +87,10 @@ public class FileManager {
     private JPanel newFilePanel;
     private JRadioButton newTypeFile;
     private JTextField name;
+     private JDesktopPane desktopPane;
+    
+   
+    
 
     public Container getGui() {
         if (gui == null) {
@@ -209,8 +217,21 @@ public class FileManager {
             openFile.addActionListener(
                     new ActionListener() {
                         public void actionPerformed(ActionEvent ae) {
+                            
+                            
                             try {
-                                desktop.open(currentFile);
+                                                               
+                            if (isImageFile(currentFile)) {
+                                openInImageViewer(currentFile);
+                            }
+                            else{
+                                     if (isTextFile(currentFile)) {
+                                        openInTextEditor(currentFile);
+                                    } else {
+                                        desktop.open(currentFile);
+                                    }                                                     
+                            }
+                                  
                             } catch (Throwable t) {
                                 showThrowable(t);
                             }
@@ -654,16 +675,78 @@ private void deleteFile() {
         writable.setSelected(file.canWrite());
         executable.setSelected(file.canExecute());
         isDirectory.setSelected(file.isDirectory());
-
         isFile.setSelected(file.isFile());
 
         JFrame f = (JFrame) gui.getTopLevelAncestor();
         if (f != null) {
             f.setTitle(APP_TITLE + " : " + fileSystemView.getSystemDisplayName(file));
         }
-
+        
         gui.repaint();
     }
+    
+    
+    private boolean isImageFile(File file) {
+    String fileName = file.getName().toLowerCase();
+    return fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") ||
+           fileName.endsWith(".png") || fileName.endsWith(".gif") ||
+           fileName.endsWith(".bmp") || fileName.endsWith(".tiff");
+    }
+    
+     private boolean isTextFile(File file) {
+        return file.getName().toLowerCase().endsWith(".txt");
+    }
+     
+     private void openInTextEditor(File file) {
+        texteditor.texteditor editor = new texteditor.texteditor();
+        editor.setVisible(true);
+        editor.setTitle(file.getName());
+        Inicio.pantalladeinicio.add(editor);
+
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            editor.panel.read(fis, null);
+            fis.close();
+        } catch (IOException e) {
+            // Handle the exception (e.g., show an error message)
+            e.printStackTrace();
+        }
+
+//         Add the text editor to your GUI or desktop if needed
+//         For example, you can add it to a JDesktopPane:
+//        gui.getDesktopPane().add(editor);
+        try {
+            editor.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+            // Handle the exception (e.g., show an error message)
+            e.printStackTrace();
+        }
+    }
+
+   private void openInImageViewer(File imageFile) {
+    try {
+        JInternalFrame internalFrame = new JInternalFrame("Imagen"+currentFile.toString(), true, true, true, true);
+        internalFrame.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
+        internalFrame.setBackground(Color.GRAY);
+        BufferedImage image = ImageIO.read(imageFile);
+        int initialWidth = 816;
+        int initialHeight = 504;
+        Image scaledImage = image.getScaledInstance(initialWidth, initialHeight, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+        JLabel label = new JLabel(scaledIcon);
+        internalFrame.getContentPane().add(label, BorderLayout.CENTER);
+        internalFrame.setSize(initialWidth, initialHeight);
+        Inicio.pantalladeinicio.add(internalFrame);
+        internalFrame.toFront();
+        internalFrame.setVisible(true);
+    } catch (Exception e) {
+        System.out.println("No se pudo abrir el JInternalFrame: " + e.getMessage());
+    }
+}
+
+
+
+
 
     public static boolean copyFile(File from, File to) throws IOException {
 
