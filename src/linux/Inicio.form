@@ -59,9 +59,7 @@
                   <Component id="jButton2" min="-2" pref="46" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jButton3" min="-2" pref="46" max="-2" attributes="0"/>
-                  <EmptySpace pref="673" max="32767" attributes="0"/>
-                  <Component id="fechainicio" min="-2" pref="136" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                  <EmptySpace pref="824" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -69,13 +67,10 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="fechainicio" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButton3" min="-2" pref="35" max="-2" attributes="0"/>
-                          <Component id="jButton2" min="-2" pref="35" max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" pref="35" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jButton3" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="jButton2" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="jButton1" min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="9" max="32767" attributes="0"/>
               </Group>
@@ -121,14 +116,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="fechainicio">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Fecha y hora"/>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="fechainicioMouseClicked"/>
-          </Events>
-        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JDesktopPane" name="pantalladeinicio">
@@ -156,19 +143,15 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="386" max="-2" attributes="0"/>
                   <Component id="paneldeapps" min="-2" pref="446" max="-2" attributes="0"/>
-                  <EmptySpace pref="476" max="32767" attributes="0"/>
-                  <Component id="Calendario" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="698" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace min="0" pref="359" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="paneldeapps" alignment="1" min="-2" pref="386" max="-2" attributes="0"/>
-                      <Component id="Calendario" alignment="1" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <EmptySpace min="0" pref="374" max="32767" attributes="0"/>
+                  <Component id="paneldeapps" min="-2" pref="386" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -665,8 +648,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="com.toedter.calendar.JCalendar" name="Calendario">
-        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

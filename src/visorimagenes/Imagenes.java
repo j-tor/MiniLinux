@@ -16,7 +16,7 @@ public class Imagenes extends javax.swing.JInternalFrame {
         this.setTitle("Mis Imagenes");
         
 //        File imageFolder = new File("Z/" + MenuPrincipal.nombreIngresado+"/Mis Imagenes");
-         File imageFolder = new File("C:/Users/aleja/OneDrive - Universidad Tecnologica Centroamericana/Universidad/Progra-2/Linux/src/Imagenes");
+         File imageFolder = new File("C:\\Users\\juanf\\OneDrive\\Imágenes\\Capturas de pantalla");
 
 
         imageFiles = imageFolder.listFiles();
@@ -40,7 +40,7 @@ public class Imagenes extends javax.swing.JInternalFrame {
             
             int labelWidth = jLabel1.getWidth();
             int labelHeight = jLabel1.getHeight();
-
+            
          
             Image scaledImage = originalImage.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
 
@@ -49,7 +49,7 @@ public class Imagenes extends javax.swing.JInternalFrame {
 
             
             jLabel1.setIcon(newIcon);
-            
+              
         } else {
            
             System.out.println("Invalid or non-image file: " + file);
@@ -147,25 +147,28 @@ public class Imagenes extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
-        currentIndex--;
-        if (currentIndex < 0) {
-            currentIndex = imageFiles.length - 1;
+ currentIndex++;
+        if (currentIndex >= imageFiles.length) {
+            currentIndex = 0;
         }
-//        ImageIcon newIcon = new ImageIcon(imageFiles[currentIndex].getPath());
-//        jLabel1.setIcon(newIcon);
+
          
         ImageIcon originalIcon = new ImageIcon(imageFiles[currentIndex].getPath());
         Image originalImage = originalIcon.getImage();
 
-        
-        int labelWidth = jLabel1.getWidth();
-        int labelHeight = jLabel1.getHeight();
+       
+        int labelWidth = 698;
+        int labelHeight = 456;
 
+        
+
+        
         Image scaledImage = originalImage.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
 
-        
+      
         ImageIcon newIcon = new ImageIcon(scaledImage);
 
+      
         jLabel1.setIcon(newIcon);
         
        
@@ -180,7 +183,7 @@ public class Imagenes extends javax.swing.JInternalFrame {
 //        ImageIcon newIcon = new ImageIcon(imageFiles[currentIndex].getPath());
 //        jLabel1.setIcon(newIcon);
 
-        currentIndex++;
+        currentIndex--;
         if (currentIndex >= imageFiles.length) {
             currentIndex = 0;
         }
@@ -190,16 +193,18 @@ public class Imagenes extends javax.swing.JInternalFrame {
         Image originalImage = originalIcon.getImage();
 
        
-        int labelWidth = jLabel1.getWidth();
-        int labelHeight = jLabel1.getHeight();
+        int labelWidth = 698;
+        int labelHeight = 456;
 
         
+
+       
         Image scaledImage = originalImage.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
 
       
         ImageIcon newIcon = new ImageIcon(scaledImage);
 
-      
+       
         jLabel1.setIcon(newIcon);
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -67,7 +67,7 @@ public class Inicio extends javax.swing.JFrame {
         popupMenuoff.setBackground(Color.GRAY);
   
         paneldeapps.setVisible(false);
-        Calendario.setVisible(false);
+        
                
         casa = new Visor();       
         timer.start();   
@@ -89,7 +89,7 @@ public class Inicio extends javax.swing.JFrame {
         Date fechaActual = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy\n HH:mm:ss");
         String fechaFormateada = formato.format(fechaActual);
-        fechainicio.setText(fechaFormateada);
+    
     }
 });
     
@@ -111,7 +111,6 @@ public class Inicio extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        fechainicio = new javax.swing.JLabel();
         pantalladeinicio = new javax.swing.JDesktopPane();
         paneldeapps = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -130,7 +129,6 @@ public class Inicio extends javax.swing.JFrame {
         Itunes9 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        Calendario = new com.toedter.calendar.JCalendar();
 
         jMenu1.setText("jMenu1");
 
@@ -177,13 +175,6 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        fechainicio.setText("Fecha y hora");
-        fechainicio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                fechainicioMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -195,20 +186,16 @@ public class Inicio extends javax.swing.JFrame {
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 673, Short.MAX_VALUE)
-                .addComponent(fechainicio, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+                .addContainerGap(824, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(fechainicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
@@ -516,7 +503,6 @@ public class Inicio extends javax.swing.JFrame {
         paneldeapps.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, 40, 40));
 
         pantalladeinicio.setLayer(paneldeapps, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        pantalladeinicio.setLayer(Calendario, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout pantalladeinicioLayout = new javax.swing.GroupLayout(pantalladeinicio);
         pantalladeinicio.setLayout(pantalladeinicioLayout);
@@ -525,16 +511,13 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pantalladeinicioLayout.createSequentialGroup()
                 .addGap(386, 386, 386)
                 .addComponent(paneldeapps, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 476, Short.MAX_VALUE)
-                .addComponent(Calendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(698, Short.MAX_VALUE))
         );
         pantalladeinicioLayout.setVerticalGroup(
             pantalladeinicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pantalladeinicioLayout.createSequentialGroup()
-                .addGap(0, 359, Short.MAX_VALUE)
-                .addGroup(pantalladeinicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(paneldeapps, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Calendario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 374, Short.MAX_VALUE)
+                .addComponent(paneldeapps, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         getContentPane().add(pantalladeinicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1530, 760));
@@ -754,12 +737,6 @@ public class Inicio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void fechainicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fechainicioMouseClicked
-        // TODO add your handling code here:
-                Calendario.setVisible(true);
-
-    }//GEN-LAST:event_fechainicioMouseClicked
-
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
 //         JPanel panel = new JPanel();
@@ -780,7 +757,7 @@ public class Inicio extends javax.swing.JFrame {
     private void pantalladeinicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pantalladeinicioMouseClicked
         // TODO add your handling code here:
          paneldeapps.setVisible(false);
-        Calendario.setVisible(false);
+      
     }//GEN-LAST:event_pantalladeinicioMouseClicked
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
@@ -866,7 +843,6 @@ public class Inicio extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JCalendar Calendario;
     private javax.swing.JButton Callculadora;
     private javax.swing.JButton Callculadora1;
     private javax.swing.JButton Itunes;
@@ -880,7 +856,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton Itunes8;
     private javax.swing.JButton Itunes9;
     private javax.swing.JPanel Menuinico;
-    private javax.swing.JLabel fechainicio;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

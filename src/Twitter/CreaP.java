@@ -1,4 +1,4 @@
-
+package Twitter;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -167,7 +167,7 @@ public class CreaP extends javax.swing.JFrame implements Serializable,Interfaz {
         SimpleDateFormat fechaF = new SimpleDateFormat("dd/MM/yy");
         fechaF.format(fecha);
         int edad = (Integer) jSpinner1.getValue();
-        U.add(new Usuario(nombre, genero, UserName, Password, fecha, edad, true));
+        U.add(new UsuarioT(nombre, genero, UserName, Password, fecha, edad, true));
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("users.twc"));
             outputStream.writeObject(U);

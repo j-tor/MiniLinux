@@ -1,4 +1,4 @@
-
+package Twitter;
 import java.util.ArrayList;
 
 /*
@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author juanf
  */
 public interface Interfaz {
-    ArrayList<Usuario> U = new ArrayList();
+    ArrayList<UsuarioT> U = new ArrayList();
 
  
     
