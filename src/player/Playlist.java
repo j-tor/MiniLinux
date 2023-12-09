@@ -45,6 +45,11 @@ public class Playlist {
         
     }
     
+    public void addSong(File songFile) {
+        // Logic to add the song to the playlist
+        ls.add(songFile);
+    }
+    
     ArrayList getListSong(){
     
         return ls;

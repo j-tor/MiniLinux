@@ -45,7 +45,7 @@ public class Inicio extends javax.swing.JFrame {
      */
     public Inicio() {
         initComponents();
-                this.getRootPane().putClientProperty("apple.awt.draggableWindowBackground", true);
+        this.getRootPane().putClientProperty("apple.awt.draggableWindowBackground", true);
 
         
         JMenuItem CreateUser = new JMenuItem("Crear Usuario");

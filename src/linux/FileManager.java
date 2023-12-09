@@ -21,6 +21,7 @@ import java.net.URL;
 import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +32,7 @@ import javax.swing.event.*;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.*;
 import javax.swing.tree.*;
+import player.Spotify;
 import visorimagenes.Imagenes;
 
 
@@ -60,7 +62,8 @@ public class FileManager {
     private JProgressBar progressBar;
     /** Table model for File[]. */
     private FileTableModel fileTableModel;
-
+    private File clipboardFile;
+    private boolean isCutOperation; 
     private ListSelectionListener listSelectionListener;
     private boolean cellSizesSet = false;
     private int rowIconPadding = 6;
@@ -72,6 +75,7 @@ public class FileManager {
     private JButton deleteFile;
     private JButton newFile;
     private JButton copyFile;
+    
     /* File details. */
     private JLabel fileName;
     private JTextField path;
@@ -214,30 +218,26 @@ public class FileManager {
             openFile = new JButton("Open");
             openFile.setMnemonic('o');
 
-            openFile.addActionListener(
-                    new ActionListener() {
-                        public void actionPerformed(ActionEvent ae) {
-                            
-                            
-                            try {
-                                                               
-                            if (isImageFile(currentFile)) {
-                                openInImageViewer(currentFile);
-                            }
-                            else{
-                                     if (isTextFile(currentFile)) {
-                                        openInTextEditor(currentFile);
-                                    } else {
-                                        desktop.open(currentFile);
-                                    }                                                     
-                            }
-                                  
-                            } catch (Throwable t) {
-                                showThrowable(t);
-                            }
-                            gui.repaint();
+            openFile.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent ae) {
+                    try {
+                         if (currentFile.isDirectory()) {               
+                        openDirectoryInNewWindow(currentFile);
+                         }else if (isImageFile(currentFile)) {
+                            openInImageViewer(currentFile);
+                        } else if (isTextFile(currentFile)) {
+                            openInTextEditor(currentFile);
+                        } else if (isMP3File(currentFile)) {
+                            addMP3ToPlaylist(currentFile);
+                        } else {
+                            desktop.open(currentFile);
                         }
-                    });
+                    } catch (Throwable t) {
+                        showThrowable(t);
+                    }
+                    gui.repaint();
+                }
+            });
             toolBar.add(openFile);
 
             editFile = new JButton("Edit");
@@ -252,7 +252,40 @@ public class FileManager {
                             }
                         }
                     });
-            toolBar.add(editFile);
+//            toolBar.add(editFile);
+            toolBar.addSeparator();
+            
+            JButton copyButton = new JButton("Copy");
+            copyButton.setMnemonic('y');
+            copyButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent ae) {
+                    copyFile();
+                     
+                }
+            });
+            toolBar.add(copyButton);
+
+
+            JButton cutButton = new JButton("Cut");
+            cutButton.setMnemonic('t');
+            cutButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent ae) {
+                    cutFile(); 
+                    gui.repaint();
+                    
+                }
+            });
+            toolBar.add(cutButton);
+            
+            JButton pasteButton = new JButton("Paste");
+            pasteButton.setMnemonic('p');
+            pasteButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent ae) {
+                    pasteFile();
+                     gui.repaint();
+                }
+            });
+            toolBar.add(pasteButton);
 
 //            printFile = new JButton("Print");
 //            printFile.setMnemonic('p');
@@ -686,17 +719,51 @@ private void deleteFile() {
     }
     
     
-    private boolean isImageFile(File file) {
-    String fileName = file.getName().toLowerCase();
-    return fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") ||
-           fileName.endsWith(".png") || fileName.endsWith(".gif") ||
-           fileName.endsWith(".bmp") || fileName.endsWith(".tiff");
-    }
+        private boolean isImageFile(File file) {
+        String fileName = file.getName().toLowerCase();
+        return fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") ||
+               fileName.endsWith(".png") || fileName.endsWith(".gif") ||
+               fileName.endsWith(".bmp") || fileName.endsWith(".tiff");
+        }
     
-     private boolean isTextFile(File file) {
-        return file.getName().toLowerCase().endsWith(".txt");
-    }
+        private boolean isTextFile(File file) {
+           return file.getName().toLowerCase().endsWith(".txt");
+       }
      
+     
+            private boolean isMP3File(File file) {
+            String fileName = file.getName().toLowerCase();
+            return fileName.endsWith(".mp3");
+        }
+
+   
+            private void addMP3ToPlaylist(File mp3File) {
+            try {
+                player.Spotify spotify = new Spotify();
+                spotify.setVisible(true);
+                Inicio.pantalladeinicio.add(spotify);
+                spotify.toFront();
+                if (spotify != null) {
+                    
+                    // Add the MP3 file to the playlist
+                    spotify.pl.addSong(mp3File);
+                    
+
+                    // Update the playlist display in the UI
+                    spotify.updateList();
+
+                    // If no song is currently playing, start playing the added song
+                    if (spotify.a == 0) {
+                        spotify.putar();
+                    }
+                    
+                }
+            } catch (Exception e) {
+                // Handle any exceptions if necessary
+                e.printStackTrace();
+            }
+        }
+
      private void openInTextEditor(File file) {
         texteditor.texteditor editor = new texteditor.texteditor();
         editor.setVisible(true);
@@ -712,9 +779,6 @@ private void deleteFile() {
             e.printStackTrace();
         }
 
-//         Add the text editor to your GUI or desktop if needed
-//         For example, you can add it to a JDesktopPane:
-//        gui.getDesktopPane().add(editor);
         try {
             editor.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
@@ -723,60 +787,146 @@ private void deleteFile() {
         }
     }
 
-   private void openInImageViewer(File imageFile) {
-    try {
-        JInternalFrame internalFrame = new JInternalFrame("Imagen"+currentFile.toString(), true, true, true, true);
+    private void openInImageViewer(File imageFile) {
+     try {
+         JInternalFrame internalFrame = new JInternalFrame("Imagen"+currentFile.toString(), true, true, true, true);
+         internalFrame.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
+         internalFrame.setBackground(Color.GRAY);
+         BufferedImage image = ImageIO.read(imageFile);
+         int initialWidth = 816;
+         int initialHeight = 504;
+         Image scaledImage = image.getScaledInstance(initialWidth, initialHeight, Image.SCALE_SMOOTH);
+         ImageIcon scaledIcon = new ImageIcon(scaledImage);
+         JLabel label = new JLabel(scaledIcon);
+         internalFrame.getContentPane().add(label, BorderLayout.CENTER);
+         internalFrame.setSize(initialWidth, initialHeight);
+         Inicio.pantalladeinicio.add(internalFrame);
+         internalFrame.toFront();
+         internalFrame.setVisible(true);
+     } catch (Exception e) {
+         System.out.println("No se pudo abrir el JInternalFrame: " + e.getMessage());
+     }
+ }
+        private void openDirectoryInNewWindow(File directory) {
+         JInternalFrame internalFrame = new JInternalFrame("Explorer", true, true, true, true);
+    
+        FileManager newFileManager = new FileManager();
+        Container newGui = newFileManager.getGui();
+
+        // Set the selected directory as the current directory for the new FileManager
+        newFileManager.setCurrentDirectory(directory);
+
         internalFrame.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
-        internalFrame.setBackground(Color.GRAY);
-        BufferedImage image = ImageIO.read(imageFile);
-        int initialWidth = 816;
-        int initialHeight = 504;
-        Image scaledImage = image.getScaledInstance(initialWidth, initialHeight, Image.SCALE_SMOOTH);
-        ImageIcon scaledIcon = new ImageIcon(scaledImage);
-        JLabel label = new JLabel(scaledIcon);
-        internalFrame.getContentPane().add(label, BorderLayout.CENTER);
-        internalFrame.setSize(initialWidth, initialHeight);
+        internalFrame.getContentPane().add(newGui);
+        internalFrame.pack();
+        internalFrame.setVisible(true);
         Inicio.pantalladeinicio.add(internalFrame);
         internalFrame.toFront();
-        internalFrame.setVisible(true);
-    } catch (Exception e) {
-        System.out.println("No se pudo abrir el JInternalFrame: " + e.getMessage());
-    }
-}
-
-
-
-
-
-    public static boolean copyFile(File from, File to) throws IOException {
-
-        boolean created = to.createNewFile();
-
-        if (created) {
-            FileChannel fromChannel = null;
-            FileChannel toChannel = null;
-            try {
-                fromChannel = new FileInputStream(from).getChannel();
-                toChannel = new FileOutputStream(to).getChannel();
-
-                toChannel.transferFrom(fromChannel, 0, fromChannel.size());
-
-                // set the flags of the to the same as the from
-                to.setReadable(from.canRead());
-                to.setWritable(from.canWrite());
-                to.setExecutable(from.canExecute());
-            } finally {
-                if (fromChannel != null) {
-                    fromChannel.close();
-                }
-                if (toChannel != null) {
-                    toChannel.close();
-                }
-                return false;
-            }
+     }
+        
+        public void setCurrentDirectory(File directory) {
+            currentFile = directory;
+            showChildren(createTreeNode(directory));
+            setFileDetails(directory);
         }
-        return created;
+
+
+
+
+
+        private void copyFile() {
+        if (currentFile == null) {
+            showErrorMessage("No file selected for copy.", "Select File");
+            return;
+        }
+
+        clipboardFile = currentFile;
+        isCutOperation = false;
+         gui.repaint();
     }
+
+    private void pasteFile() {
+        if (clipboardFile == null) {
+            showErrorMessage("Clipboard is empty.", "Empty Clipboard");
+            return;
+        }
+
+        if (currentFile == null || !currentFile.isDirectory()) {
+            showErrorMessage("Cannot paste into a non-directory location.", "Invalid Location");
+            return;
+        }
+
+        try {
+            File destination = new File(currentFile, clipboardFile.getName());
+
+            if (isCutOperation) {
+                // Move the file if it's a cut operation
+                Files.move(clipboardFile.toPath(), destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                isCutOperation = false; // Reset cut operation after pasting
+            } else {
+                // Copy the file if it's a copy operation
+                Files.copy(clipboardFile.toPath(), destination.toPath(), StandardCopyOption.COPY_ATTRIBUTES);
+            }
+            
+            // Refresh the view
+             TreePath parentPath = findTreePath(currentFile);
+            DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) parentPath.getLastPathComponent();
+            showChildren(parentNode);
+            gui.repaint();
+        } catch (IOException e) {
+            showErrorMessage("Error during paste operation.", "Paste Error");
+            
+        }catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Paste correct", null, JOptionPane.INFORMATION_MESSAGE);
+
+            gui.repaint();
+            
+        }
+        
+    }
+
+    private void cutFile() {
+        if (currentFile == null) {
+            showErrorMessage("No file selected for cut.", "Select File");
+            return;
+        }
+
+        clipboardFile = currentFile;
+        isCutOperation = true;
+        gui.repaint();
+    }
+
+
+        public static boolean copyFile(File from, File to) throws IOException {
+
+            boolean created = to.createNewFile();
+
+            if (created) {
+                FileChannel fromChannel = null;
+                FileChannel toChannel = null;
+                try {
+                    fromChannel = new FileInputStream(from).getChannel();
+                    toChannel = new FileOutputStream(to).getChannel();
+
+                    toChannel.transferFrom(fromChannel, 0, fromChannel.size());
+
+                    // set the flags of the to the same as the from
+                    to.setReadable(from.canRead());
+                    to.setWritable(from.canWrite());
+                    to.setExecutable(from.canExecute());
+                    
+                } finally {
+                    if (fromChannel != null) {
+                        fromChannel.close();
+                    }
+                    if (toChannel != null) {
+                        toChannel.close();
+                    }
+                    return false;
+                }
+            }
+            return created;
+        }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(
