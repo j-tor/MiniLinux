@@ -33,25 +33,25 @@ public class Imagenes extends javax.swing.JInternalFrame {
          
              
             if (file != null && file.isFile()) {
-            // Assuming you have a JLabel named imageLabel to display the image
+           
             ImageIcon icon = new ImageIcon(file.getAbsolutePath());            
             Image originalImage = icon.getImage();
 
-            // Obtener el tamaño del JLabel
+            
             int labelWidth = jLabel1.getWidth();
             int labelHeight = jLabel1.getHeight();
 
-            // Escalar la imagen al tamaño del JLabel
+         
             Image scaledImage = originalImage.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
 
-            // Crear un nuevo ImageIcon con la imagen escalada
+          
             ImageIcon newIcon = new ImageIcon(scaledImage);
 
-            // Establecer el nuevo ImageIcon en el JLabel
+            
             jLabel1.setIcon(newIcon);
             
         } else {
-            // Handle the case where the file is not valid or not an image
+           
             System.out.println("Invalid or non-image file: " + file);
         }
         
@@ -153,22 +153,19 @@ public class Imagenes extends javax.swing.JInternalFrame {
         }
 //        ImageIcon newIcon = new ImageIcon(imageFiles[currentIndex].getPath());
 //        jLabel1.setIcon(newIcon);
-         // Obtener la imagen original
-           // Obtener la imagen original
+         
         ImageIcon originalIcon = new ImageIcon(imageFiles[currentIndex].getPath());
         Image originalImage = originalIcon.getImage();
 
-        // Obtener el tamaño del JLabel
+        
         int labelWidth = jLabel1.getWidth();
         int labelHeight = jLabel1.getHeight();
 
-        // Escalar la imagen al tamaño del JLabel
         Image scaledImage = originalImage.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
 
-        // Crear un nuevo ImageIcon con la imagen escalada
+        
         ImageIcon newIcon = new ImageIcon(scaledImage);
 
-        // Establecer el nuevo ImageIcon en el JLabel
         jLabel1.setIcon(newIcon);
         
        
@@ -188,22 +185,21 @@ public class Imagenes extends javax.swing.JInternalFrame {
             currentIndex = 0;
         }
 
-         // Obtener la imagen original
-           // Obtener la imagen original
+         
         ImageIcon originalIcon = new ImageIcon(imageFiles[currentIndex].getPath());
         Image originalImage = originalIcon.getImage();
 
-        // Obtener el tamaño del JLabel
+       
         int labelWidth = jLabel1.getWidth();
         int labelHeight = jLabel1.getHeight();
 
-        // Escalar la imagen al tamaño del JLabel
+        
         Image scaledImage = originalImage.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
 
-        // Crear un nuevo ImageIcon con la imagen escalada
+      
         ImageIcon newIcon = new ImageIcon(scaledImage);
 
-        // Establecer el nuevo ImageIcon en el JLabel
+      
         jLabel1.setIcon(newIcon);
     }//GEN-LAST:event_jButton1ActionPerformed
 
