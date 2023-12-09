@@ -1,6 +1,6 @@
 package Usuarios;
 
-import Menu.InicioDeSistema;
+import linux.Login;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -42,9 +42,9 @@ public class ProcesoLogin {
             ra.writeBytes("Password:"+pswd+ "\r\n");
             ra.writeBytes("Tipo:"+mail);
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(InicioDeSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -67,9 +67,9 @@ public class ProcesoLogin {
                 return false;
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(InicioDeSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(InicioDeSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
             return false;
     }
@@ -95,9 +95,9 @@ public class ProcesoLogin {
                 }
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(InicioDeSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(InicioDeSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -111,9 +111,9 @@ public class ProcesoLogin {
             }
             System.out.println("number of lines:"+ln);
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(InicioDeSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(InicioDeSistema.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
