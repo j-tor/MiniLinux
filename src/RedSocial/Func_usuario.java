@@ -123,32 +123,33 @@ public class Func_usuario {
     }
 
     public static boolean existeUsuario(String user, RandomAccessFile usuarios) throws IOException {
-
+        try {
+            
         usuarios.seek(0);
-
-        while (usuarios.getFilePointer() < usuarios.length()) {
+             while (usuarios.getFilePointer() < usuarios.length()) {
 
             String user_v = usuarios.readUTF();
 
             if (user_v.equals(user)) {
                 return true;
-            } else {
+                } else {
+                    usuarios.readUTF();
+                    usuarios.readUTF();
+                    usuarios.readChar();
+                    usuarios.readInt();
+                    usuarios.readLong();
+                    usuarios.readBoolean();
 
-                usuarios.readUTF();
-                usuarios.readUTF();
-                usuarios.readChar();
-                usuarios.readInt();
-                usuarios.readLong();
-                usuarios.readBoolean();
+                    byte[] img_buffer = new byte[usuarios.readInt()];
+                    usuarios.read(img_buffer);
 
-                byte[] img_buffer = new byte[usuarios.readInt()];
-                usuarios.read(img_buffer);
-
-                if (usuarios.getFilePointer() == usuarios.length()) {
-                    return false;
+                    if (usuarios.getFilePointer() == usuarios.length()) {
+                        return false;
+                    }
                 }
-            }
 
+            }
+            } catch (Exception e) {
         }
 
         return false;

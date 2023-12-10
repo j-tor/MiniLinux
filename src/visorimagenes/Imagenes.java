@@ -39,8 +39,9 @@ public class Imagenes extends javax.swing.JInternalFrame {
             Image originalImage = icon.getImage();
 
             
-            int labelWidth = jLabel1.getWidth();
-            int labelHeight = jLabel1.getHeight();
+          int labelWidth = 698;
+        int labelHeight = 456;
+
             
          
             Image scaledImage = originalImage.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
@@ -86,14 +87,12 @@ public class Imagenes extends javax.swing.JInternalFrame {
         setBackground(new java.awt.Color(102, 102, 102));
         setClosable(true);
         setIconifiable(true);
-        setMaximizable(true);
-        setResizable(true);
         setTitle("Mis Imagenes");
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
 
-        jButton1.setText("nn");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/iconfinder_skip-previous_326509.png"))); // NOI18N
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -102,7 +101,7 @@ public class Imagenes extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton2.setText("jn");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/iconfinder_next_293690.png"))); // NOI18N
         jButton2.setBorderPainted(false);
         jButton2.setContentAreaFilled(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -119,7 +118,7 @@ public class Imagenes extends javax.swing.JInternalFrame {
                 .addGap(10, 10, 10)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 860, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
                 .addContainerGap())
@@ -139,7 +138,7 @@ public class Imagenes extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(206, 206, 206)
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 193, Short.MAX_VALUE)))
+                        .addGap(0, 262, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -148,10 +147,9 @@ public class Imagenes extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
- currentIndex++;
-       currentIndex++;
-        if (currentIndex >= imageFiles.length) {
-            currentIndex = 0;
+        currentIndex--;
+        if (currentIndex < 0) {
+            currentIndex = imageFiles.length - 1;
         }
 
          
@@ -171,8 +169,7 @@ public class Imagenes extends javax.swing.JInternalFrame {
       
         ImageIcon newIcon = new ImageIcon(scaledImage);
 
-        System.out.println(labelWidth);
-                System.out.println(labelHeight);
+       
         jLabel1.setIcon(newIcon);
         
        
@@ -187,7 +184,7 @@ public class Imagenes extends javax.swing.JInternalFrame {
 //        ImageIcon newIcon = new ImageIcon(imageFiles[currentIndex].getPath());
 //        jLabel1.setIcon(newIcon);
 
-      currentIndex--;
+        currentIndex++;
         if (currentIndex >= imageFiles.length) {
             currentIndex = 0;
         }
@@ -209,8 +206,7 @@ public class Imagenes extends javax.swing.JInternalFrame {
       
         ImageIcon newIcon = new ImageIcon(scaledImage);
 
-        System.out.println(labelWidth);
-                System.out.println(labelHeight);
+        
         jLabel1.setIcon(newIcon);
     }//GEN-LAST:event_jButton1ActionPerformed
 
