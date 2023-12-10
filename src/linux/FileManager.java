@@ -13,7 +13,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -33,50 +32,32 @@ import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.*;
 import javax.swing.tree.*;
 import player.Spotify;
-import visorimagenes.Imagenes;
+
 
 
 public class FileManager {
 
-    /** Title of the application */
+
     public static final String APP_TITLE = "Explorador";
-    /** Used to open/edit/print files. */
     private Desktop desktop;
-    /** Provides nice icons and names for files. */
     private FileSystemView fileSystemView;
-
-    /** currently selected File. */
     private File currentFile;
-
-    /** Main GUI container */
     private JPanel gui;
-
-    /** File-system tree. Built Lazily */
     private JTree tree;
-
     private DefaultTreeModel treeModel;
-
-    /** Directory listing */
     private JTable table;
-
     private JProgressBar progressBar;
-    /** Table model for File[]. */
     private FileTableModel fileTableModel;
     private File clipboardFile;
     private boolean isCutOperation; 
     private ListSelectionListener listSelectionListener;
     private boolean cellSizesSet = false;
     private int rowIconPadding = 6;
-
-    /* File controls. */
     private JButton openFile;
-    private JButton printFile;
     private JButton editFile;
     private JButton deleteFile;
     private JButton newFile;
     private JButton copyFile;
-    
-    /* File details. */
     private JLabel fileName;
     private JTextField path;
     private JLabel date;
@@ -86,12 +67,9 @@ public class FileManager {
     private JCheckBox executable;
     private JRadioButton isDirectory;
     private JRadioButton isFile;
-
-    /* GUI options/containers for new File/Directory creation.  Created lazily. */
     private JPanel newFilePanel;
     private JRadioButton newTypeFile;
     private JTextField name;
-     private JDesktopPane desktopPane;
     
    
     
@@ -105,7 +83,7 @@ public class FileManager {
             desktop = Desktop.getDesktop();
 
             JPanel detailView = new JPanel(new BorderLayout(3, 3));
-            // fileTableModel = new FileTableModel();
+       
 
             table = new JTable();
             table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -127,7 +105,7 @@ public class FileManager {
                     new Dimension((int) d.getWidth(), (int) d.getHeight() / 2));
             detailView.add(tableScroll, BorderLayout.CENTER);
 
-            // the File tree
+            // el file choser
         
             String rutaDirectorioUsuario = "Z:/" + linux.Inicio.nombreIngresado;
             DefaultMutableTreeNode root = createTreeNode(new File(rutaDirectorioUsuario));
@@ -144,20 +122,19 @@ public class FileManager {
                         }
                     };
 
-            // show the file system roots.
+            // muestra las rutas de los archivos.
             File[] roots = fileSystemView.getRoots();
             for (File fileSystemRoot : roots) {
                 DefaultMutableTreeNode node = new DefaultMutableTreeNode(fileSystemRoot);
                 root.add(node);
-                // showChildren(node);
-                //
+           
                 File[] files = fileSystemView.getFiles(fileSystemRoot, true);
                 for (File file : files) {
                     if (file.isDirectory()) {
                         node.add(new DefaultMutableTreeNode(file));
                     }
                 }
-                //
+
             }
 
             tree = new JTree(treeModel);
@@ -167,14 +144,12 @@ public class FileManager {
             tree.expandRow(0);
             JScrollPane treeScroll = new JScrollPane(tree);
 
-            // as per trashgod tip
             tree.setVisibleRowCount(15);
 
             Dimension preferredSize = treeScroll.getPreferredSize();
             Dimension widePreferred = new Dimension(200, (int) preferredSize.getHeight());
             treeScroll.setPreferredSize(widePreferred);
 
-            // details for a File
             JPanel fileMainDetails = new JPanel(new BorderLayout(4, 2));
             fileMainDetails.setBorder(new EmptyBorder(0, 6, 0, 6));
 
@@ -215,7 +190,6 @@ public class FileManager {
             }
 
             JToolBar toolBar = new JToolBar();
-            // mnemonics stop working in a floated toolbar
             toolBar.setFloatable(false);
 
             openFile = new JButton("Open");
@@ -255,7 +229,6 @@ public class FileManager {
                             }
                         }
                     });
-//            toolBar.add(editFile);
             toolBar.addSeparator();
             
             JButton copyButton = new JButton("Copy");
@@ -290,24 +263,11 @@ public class FileManager {
             });
             toolBar.add(pasteButton);
 
-//            printFile = new JButton("Print");
-//            printFile.setMnemonic('p');
-//            printFile.addActionListener(
-//                    new ActionListener() {
-//                        public void actionPerformed(ActionEvent ae) {
-//                            try {
-//                                desktop.print(currentFile);
-//                            } catch (Throwable t) {
-//                                showThrowable(t);
-//                            }
-//                        }
-//                    });
-//            toolBar.add(printFile);
 
-            // Check the actions are supported on this platform!
+ 
             openFile.setEnabled(desktop.isSupported(Desktop.Action.OPEN));
             editFile.setEnabled(desktop.isSupported(Desktop.Action.EDIT));
-//            printFile.setEnabled(desktop.isSupported(Desktop.Action.PRINT));
+
 
             toolBar.addSeparator();
 
@@ -329,7 +289,7 @@ public class FileManager {
                             showErrorMessage("'Copy' not implemented.", "Not implemented.");
                         }
                     });
-//            toolBar.add(copyFile);
+
 
             JButton renameFile = new JButton("Rename");
             renameFile.setMnemonic('r');
@@ -356,17 +316,16 @@ public class FileManager {
             readable = new JCheckBox("Read  ");
             readable.setMnemonic('a');
              readable.setEnabled(false);
-//            toolBar.add(readable);
+
 
             writable = new JCheckBox("Write  ");
             writable.setMnemonic('w');
              writable.setEnabled(false);
-//            toolBar.add(writable);
+
 
             executable = new JCheckBox("Execute");
             executable.setMnemonic('x');
              executable.setEnabled(false);
-//            toolBar.add(executable);
 
             JPanel fileView = new JPanel(new BorderLayout(3, 3));
 
@@ -404,7 +363,6 @@ public class FileManager {
 
 
     public void showRootFile() {
-        // ensure the main files are displayed
         tree.setSelectionInterval(0, 0);
     }
 
@@ -419,7 +377,6 @@ public class FileManager {
                 return treePath;
             }
         }
-        // not found!
         return null;
     }
 
@@ -441,9 +398,7 @@ public class FileManager {
                         currentFile.renameTo(new File(currentFile.getParentFile(), renameTo));
                 if (renamed) {
                     if (directory) {
-                        // rename the node..
 
-                        // delete the current node..
                         TreePath currentPath = findTreePath(currentFile);
                         System.out.println(currentPath);
                         DefaultMutableTreeNode currentNode =
@@ -451,7 +406,6 @@ public class FileManager {
 
                         treeModel.removeNodeFromParent(currentNode);
 
-                        // add a new node..
                     }
 
                     showChildren(parentNode);
@@ -494,7 +448,6 @@ private void deleteFile() {
             Files.delete(filePath); // Delete the file or directory
 
             if (directory) {
-                // delete the node..
                 TreePath currentPath = findTreePath(currentFile);
                 System.out.println(currentPath);
                 
@@ -579,7 +532,6 @@ private void deleteFile() {
                     showErrorMessage(msg, "Create Failed");
                 }
             } catch (Throwable t) {
-//                showThrowable(t);
             }
         }
         gui.repaint();
@@ -611,7 +563,6 @@ private void deleteFile() {
                         if (!cellSizesSet) {
                             Icon icon = fileSystemView.getSystemIcon(files[0]);
 
-                            // size adjustment to better account for icons
                             table.setRowHeight(icon.getIconHeight() + rowIconPadding);
 
                             setColumnWidth(0, -1);
@@ -635,10 +586,10 @@ private void deleteFile() {
       TableColumn tableColumn = table.getColumnModel().getColumn(column);
      
           if (width < 0) {
-        // use the preferred width of the header..
+
         JLabel label = new JLabel((String) tableColumn.getHeaderValue());
         Dimension preferred = label.getPreferredSize();
-        // altered 10->14 as per camickr comment.
+
         width = (int) preferred.getWidth() + 14;
     }
     tableColumn.setPreferredWidth(width);
@@ -698,7 +649,7 @@ private void deleteFile() {
         worker.execute();
     }
 
-    /** Update the File details view with the details of this File. */
+
     private void setFileDetails(File file) {
         currentFile = file;
         Icon icon = fileSystemView.getSystemIcon(file);
@@ -748,21 +699,16 @@ private void deleteFile() {
                 spotify.toFront();
                 if (spotify != null) {
                     
-                    // Add the MP3 file to the playlist
                     spotify.pl.addSong(mp3File);
                     
-
-                    // Update the playlist display in the UI
                     spotify.updateList();
 
-                    // If no song is currently playing, start playing the added song
                     if (spotify.a == 0) {
                         spotify.putar();
                     }
                     
                 }
             } catch (Exception e) {
-                // Handle any exceptions if necessary
                 e.printStackTrace();
             }
         }
@@ -778,14 +724,13 @@ private void deleteFile() {
             editor.panel.read(fis, null);
             fis.close();
         } catch (IOException e) {
-            // Handle the exception (e.g., show an error message)
-            e.printStackTrace();
+
         }
 
         try {
             editor.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
-            // Handle the exception (e.g., show an error message)
+
             e.printStackTrace();
         }
     }
@@ -816,7 +761,7 @@ private void deleteFile() {
         FileManager newFileManager = new FileManager();
         Container newGui = newFileManager.getGui();
 
-        // Set the selected directory as the current directory for the new FileManager
+        // abre el nuevo directorio 
         newFileManager.setCurrentDirectory(directory);
 
         internalFrame.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
@@ -863,15 +808,14 @@ private void deleteFile() {
             File destination = new File(currentFile, clipboardFile.getName());
 
             if (isCutOperation) {
-                // Move the file if it's a cut operation
+
                 Files.move(clipboardFile.toPath(), destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
                 isCutOperation = false; // Reset cut operation after pasting
             } else {
-                // Copy the file if it's a copy operation
+
                 Files.copy(clipboardFile.toPath(), destination.toPath(), StandardCopyOption.COPY_ATTRIBUTES);
             }
             
-            // Refresh the view
              TreePath parentPath = findTreePath(currentFile);
             DefaultMutableTreeNode parentNode = (DefaultMutableTreeNode) parentPath.getLastPathComponent();
             showChildren(parentNode);
@@ -913,7 +857,6 @@ private void deleteFile() {
 
                     toChannel.transferFrom(fromChannel, 0, fromChannel.size());
 
-                    // set the flags of the to the same as the from
                     to.setReadable(from.canRead());
                     to.setWritable(from.canWrite());
                     to.setExecutable(from.canExecute());
@@ -936,8 +879,6 @@ private void deleteFile() {
                 new Runnable() {
                     public void run() {
                         try {
-                            // Significantly improves the look of the output in
-                            // terms of the file names returned by FileSystemView!
                             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                         } catch (Exception weTried) {
                         }
@@ -968,7 +909,7 @@ private void deleteFile() {
     }
 }
 
-/** A TableModel to hold File[]. */
+
 class FileTableModel extends AbstractTableModel {
 
     private File[] files;
@@ -1054,7 +995,7 @@ class FileTableModel extends AbstractTableModel {
     }
 }
 
-/** A TreeCellRenderer for a File. */
+
 class FileTreeCellRenderer extends DefaultTreeCellRenderer {
 
     private FileSystemView fileSystemView;

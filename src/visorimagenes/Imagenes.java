@@ -63,18 +63,6 @@ public class Imagenes extends javax.swing.JInternalFrame {
         
     }
     
-//    public ImageIcon secticon(String m, byte[] image) {
-//        if (m != null) {
-//            myimage = new ImageIcon(m);
-//
-//        } else {
-//            myimage = new ImageIcon(image);
-//        }
-//        Image img1 = myimage.getImage();
-//        Image img2 = img1.getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_SMOOTH);
-//        ImageIcon i = new ImageIcon(img2);
-//        return i;
-//    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -177,12 +165,6 @@ public class Imagenes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        currentIndex++;
-//        if (currentIndex >= imageFiles.length) {
-//            currentIndex = 0;
-//        }
-//        ImageIcon newIcon = new ImageIcon(imageFiles[currentIndex].getPath());
-//        jLabel1.setIcon(newIcon);
 
         currentIndex++;
         if (currentIndex >= imageFiles.length) {

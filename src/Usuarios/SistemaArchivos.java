@@ -29,6 +29,12 @@ public class SistemaArchivos extends JFrame {
         crearUsuarioAdmin();      
         setVisible(true);
     }
+    
+    
+//    public static boolean esAdministrador(String nombreUsuario) {
+////        Usuario usuario = usuarios.get(nombreUsuario);
+////        return usuario != null && usuario.getTipo().equalsIgnoreCase("Administrador");
+//    }
 
     private void login() {
         String usuario = usuarioTextField.getText();

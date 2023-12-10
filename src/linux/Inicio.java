@@ -4,10 +4,10 @@
  */
 package linux;
 
-import RedSocial.FramePrincipal;
+
 import RedSocial.LogIn;
 import Usuarios.CrearcionUsuarios;
-import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Event;
@@ -30,10 +30,10 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.Timer;
-import player.PlayerMemo;
 import player.Spotify;
 import visorimagenes.Imagenes;
 import visorimagenes.Visor;
+import Usuarios.SistemaArchivos;
 
 /**
  *
@@ -57,12 +57,10 @@ public class Inicio extends javax.swing.JFrame {
 
         
         JMenuItem CreateUser = new JMenuItem("Crear Usuario");
-        JMenuItem DeletUser = new JMenuItem("Eliminar Usuario");
-        JMenuItem EditUser = new JMenuItem("Editar Usuario");
+        
         
         popupMenuUser.add(CreateUser);
-        popupMenuUser.add(DeletUser);
-        popupMenuUser.add(EditUser);
+        
         popupMenuUser.setBackground(Color.GRAY);
         
         JMenuItem off = new JMenuItem("Apagar");
@@ -84,14 +82,19 @@ public class Inicio extends javax.swing.JFrame {
           @Override
           public void actionPerformed(ActionEvent e) {
               
-              
-//                if ("Administrador".equals(tipoIngresado)) {
-                Usuarios.CrearcionUsuarios cre = new CrearcionUsuarios();
+              Usuarios.CrearcionUsuarios cre = new CrearcionUsuarios();
                 pantalladeinicio.add(cre).setVisible(true);
                 paneldeapps.setVisible(false);
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Esta opcion no esta disponible para usted!");
-//        }
+//            if (SistemaArchivos.esAdministrador(tipoIngresado)) {
+//                Usuarios.CrearcionUsuarios cre = new CrearcionUsuarios();
+//                pantalladeinicio.add(cre).setVisible(true);
+//                paneldeapps.setVisible(false);
+//            } else {
+//                 JOptionPane.showMessageDialog(null, "Error: Aplicacion en Uso", "Error", JOptionPane.INFORMATION_MESSAGE);
+//                System.out.println("no puedes");
+//            }
+                
+
                 
             }
         });
