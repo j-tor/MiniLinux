@@ -17,6 +17,102 @@ public class Users {
         }
 
     }
+    
+    // Usage example:
+//public static void main(String[] args) {
+//    ArrayList<UsuarioT> users = obtenerUsuarios("users.twc");
+//    // Process the list of users as needed
+//}
+//
+//    
+//    public static void printAllUsers(String filePath) {
+//    try (RandomAccessFile file = new RandomAccessFile(filePath, "r")) {
+//        long fileLength = file.length();
+//
+//            while (file.getFilePointer() < fileLength) {
+//                UsuarioT user = readUserFromFile(file);
+//                System.out.println(user); // Assuming toString() is implemented in UsuarioT
+//            }
+//        } catch (IOException e) {
+//            
+//        }
+//    }
+
+    
+    
+//   public static void addUserToFile(UsuarioT newUser, String filePath) {
+//        try (RandomAccessFile file = new RandomAccessFile(filePath, "rw")) {
+//            file.seek(file.length());
+//
+//            
+//            writeUserToFile(newUser, file);
+//        } catch (IOException e) {
+////            e.printStackTrace();
+//        }
+//    }
+//
+//    
+//    private static void writeUserToFile(UsuarioT user, RandomAccessFile file) throws IOException {
+//        file.writeUTF(user.getNusuario());
+//        file.writeChar(user.getGenero());
+//        file.writeUTF(user.getUsername());
+//        file.writeUTF(user.getPassword());
+//        file.writeLong(user.getFechaEntradaSistema().getTime());
+//        file.writeInt(user.getEdad());
+//        file.writeBoolean(user.isCuentaActiva());
+//    }
+//
+//    
+////  public static boolean validateUser(String username, String password, String filePath) {
+//    try (RandomAccessFile file = new RandomAccessFile(filePath, "r")) {
+//        long fileLength = file.length();
+//
+//        while (file.getFilePointer() < fileLength) {
+//            long startPosition = file.getFilePointer();
+//            UsuarioT user = readUserFromFile(file);
+//
+//            System.out.println("Stored: " + user.getUsername() + " / " + user.getPassword());
+//            System.out.println("Entered: " + username + " / " + password);
+//
+//            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+//                return true;
+//            }
+//
+//            long endPosition = file.getFilePointer();
+//            if (startPosition == endPosition) {
+//                break;
+//            }
+//
+//            // If there's no more data, break out of the loop
+//            if (file.getFilePointer() >= fileLength) {
+//                break;
+//            }
+//        }
+//    } catch (EOFException e) {
+//        // Handle the end of the file gracefully
+//    } catch (IOException e) {
+////        e.printStackTrace();
+//    }
+//    return false;
+//}
+
+
+
+   
+//    private static UsuarioT readUserFromFile(RandomAccessFile file) throws IOException {
+//        String nUsuario = file.readUTF();
+//        char genero = file.readChar();
+//        String username = file.readUTF();
+//        String password = file.readUTF();
+//        Date fechaEntradaSistema = new Date(file.readLong());
+//        int edad = file.readInt();
+//        boolean cuentaActiva = file.readBoolean();
+//
+//        return new UsuarioT(nUsuario, genero, username, password, fechaEntradaSistema, edad, cuentaActiva);
+//    }
+
+   
+    
 
     public long ObtenerPuntero() throws IOException {
 

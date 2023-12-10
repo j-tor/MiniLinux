@@ -4,15 +4,24 @@
  */
 package linux;
 
+import Usuarios.SistemaArchivos;
+import Usuarios.Users;
+import java.awt.CardLayout;
 import java.awt.Image;
 import java.awt.Taskbar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.EOFException;
 import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -20,40 +29,27 @@ import javax.swing.Timer;
  * @author aleja
  */
 public class Login extends javax.swing.JFrame {
-    String projectDir;
+     String projectDir;
     public static String UserLoging;
+    
+    public File file = null;
+    Inicio menu = new Inicio();
+    private CardLayout cardLayout;
+    private static final String USUARIOS_FILE = "usuarios.dat";
+    private Usuarios.Users User = new Users();
 
     /**
      * Creates new form Login
      */
     public Login() {
-       ImageIcon appIcon = new ImageIcon(getClass().getResource("/images/icons-ubuntu.png"));
-        Image appImage = appIcon.getImage();
-        setIconImage(appImage);
-
-        try {
-            if(Taskbar.isTaskbarSupported()){
-                final Taskbar taskbar = Taskbar.getTaskbar();
-                taskbar.setIconImage(appImage);
-            }
-        } catch (Exception e) {
-        }
-        
         this.getRootPane().putClientProperty("apple.awt.draggableWindowBackground", true);
-        initComponents();       
-        createUsersFolderStructure();
-    }
-    
-    private void createUsersFolderStructure(){
-        projectDir = System.getProperty("user.dir") + "/src/main/users";
-        String adminFolderPath = Usuario.getDefaultUser();
-        String usersFilePath = adminFolderPath + File.separator + "users.twc";
-//        FolderStructureCreator.createFolderFor(adminFolderPath);
-//        FolderStructureCreator.createFile(projectDir, usersFilePath);
 
-        Usuario.createDefaultAdminUser();
+        initComponents();
+        setComponents();
+       
     }
     
+
     
    
     
@@ -89,19 +85,34 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        name = new javax.swing.JTextField();
+        Loginbottom = new javax.swing.JButton();
+        Username = new javax.swing.JTextField();
         Password = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Login");
+        Loginbottom.setText("Login");
+        Loginbottom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LoginbottomActionPerformed(evt);
+            }
+        });
 
-        name.setText("admin");
+        Username.setText("admin");
+        Username.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UsernameActionPerformed(evt);
+            }
+        });
 
         Password.setText("jPasswordField1");
+        Password.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PasswordActionPerformed(evt);
+            }
+        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/win.png"))); // NOI18N
 
@@ -120,8 +131,8 @@ public class Login extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(286, 286, 286)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(name)
+                                    .addComponent(Loginbottom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(Username)
                                     .addComponent(Password, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(336, 336, 336)
@@ -138,11 +149,11 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap(116, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Loginbottom, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(169, 169, 169)
                 .addComponent(jButton2)
                 .addContainerGap())
@@ -161,6 +172,51 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void UsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UsernameActionPerformed
+
+    private void PasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PasswordActionPerformed
+
+    private void LoginbottomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginbottomActionPerformed
+        String usuario = Username.getText();
+        String contraseña = new String(Password.getPassword());
+
+        // Lógica de autenticación
+        if (autenticarUsuario(usuario, contraseña)) {
+            UserLoging = usuario;
+            JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
+            linux.Inicio escritorio = new Inicio();
+            escritorio.setVisible(true);
+            Usuarios.SistemaArchivos.abrirSistemaDeArchivos(usuario);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error de autenticación", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_LoginbottomActionPerformed
+
+    private boolean autenticarUsuario(String usuario, String contraseña) {
+        try (RandomAccessFile raf = new RandomAccessFile(USUARIOS_FILE, "rw")) {
+            while (raf.getFilePointer() < raf.length()) {
+                long offset = raf.getFilePointer();
+                String storedUsuario = raf.readUTF();
+                String storedContraseña = raf.readUTF();
+
+                if (storedUsuario.equals(usuario) && storedContraseña.equals(contraseña)) {
+                    return true; 
+                }
+            }
+        } catch (EOFException e) {      
+            return false;  
+        } catch (IOException e) {         
+            return false;
+        }
+        return false;
+        
+    }
 
     /**
      * @param args the command line arguments
@@ -198,11 +254,11 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPasswordField Password;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton Loginbottom;
+    public javax.swing.JPasswordField Password;
+    public static javax.swing.JTextField Username;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField name;
     // End of variables declaration//GEN-END:variables
 }

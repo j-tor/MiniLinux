@@ -7,11 +7,12 @@ import javax.swing.JOptionPane;
 
 
 public class CrearcionUsuarios extends javax.swing.JInternalFrame {
-    Users user = new Users();
+   private SistemaArchivos sistemaArchivos = new SistemaArchivos();
     
     public CrearcionUsuarios() {
         initComponents();
         setLocation(550, 300);
+//        sistemaArchivos = sistemaArchivos;
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -35,6 +36,11 @@ public class CrearcionUsuarios extends javax.swing.JInternalFrame {
         BotonRegistrar.setForeground(new java.awt.Color(0, 0, 0));
         BotonRegistrar.setText("Guardar");
         BotonRegistrar.setBorder(new javax.swing.border.MatteBorder(null));
+        BotonRegistrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BotonRegistrarMouseClicked(evt);
+            }
+        });
         BotonRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotonRegistrarActionPerformed(evt);
@@ -49,7 +55,7 @@ public class CrearcionUsuarios extends javax.swing.JInternalFrame {
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Nombre:");
+        jLabel2.setText("User Name");
 
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -75,9 +81,10 @@ public class CrearcionUsuarios extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(BotonRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -86,11 +93,8 @@ public class CrearcionUsuarios extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(Contranueva, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Tipo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(nombrenuevo)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(101, 101, 101)
-                        .addComponent(BotonRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 22, Short.MAX_VALUE))
+                            .addComponent(nombrenuevo))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,35 +111,16 @@ public class CrearcionUsuarios extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                .addGap(30, 30, 30)
                 .addComponent(BotonRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+                .addGap(39, 39, 39))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRegistrarActionPerformed
-
-        
-        String nombre = nombrenuevo.getText();
-        String contra = Contranueva.getText();
-        String tipo = Tipo.getSelectedItem().toString();
-        try {
-              if(user.buscarUsuario(nombre)){
-              JOptionPane.showMessageDialog(this, "El usuario ingresado ya existe");
-              }else{
-            user.CrearCarpetasUser(nombre, contra, tipo);
-            JOptionPane.showMessageDialog(this, "Usuario registrado correctamente - La persona registrada es tipo: "+tipo);
-            nombrenuevo.setText("");
-            Contranueva.setText("");
-            this.dispose();
-              }
-        } catch (IOException ex) {
-            Logger.getLogger(CrearcionUsuarios.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Error: "+ex);
-        }
-        
+ 
     }//GEN-LAST:event_BotonRegistrarActionPerformed
 
     private void TipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TipoActionPerformed
@@ -145,6 +130,24 @@ public class CrearcionUsuarios extends javax.swing.JInternalFrame {
     private void ContranuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContranuevaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ContranuevaActionPerformed
+
+    private void BotonRegistrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonRegistrarMouseClicked
+        // TODO add your handling code here:
+        
+         String nuevoUsuario = nombrenuevo.getText();
+        String nuevaContraseña = new String(Contranueva.getPassword());
+        String tipoUsuario = (String) Tipo.getSelectedItem();
+
+        // Check if the fields are not empty
+        if (!nuevoUsuario.isEmpty() && !nuevaContraseña.isEmpty()) {
+            sistemaArchivos.crearUsuario(nuevoUsuario, nuevaContraseña, tipoUsuario);
+            JOptionPane.showMessageDialog(this, "Nuevo usuario creado", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            // You can close the internal frame or perform other actions here if needed
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe completar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_BotonRegistrarMouseClicked
     
      public static void main(String args[]) {
         try {
@@ -165,11 +168,11 @@ public class CrearcionUsuarios extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonRegistrar;
-    private javax.swing.JPasswordField Contranueva;
-    private javax.swing.JComboBox<String> Tipo;
+    public static javax.swing.JPasswordField Contranueva;
+    public static javax.swing.JComboBox<String> Tipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField nombrenuevo;
+    public static javax.swing.JTextField nombrenuevo;
     // End of variables declaration//GEN-END:variables
 }

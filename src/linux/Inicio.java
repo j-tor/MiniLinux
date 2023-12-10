@@ -4,6 +4,9 @@
  */
 package linux;
 
+import RedSocial.FramePrincipal;
+import RedSocial.LogIn;
+import Usuarios.CrearcionUsuarios;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -11,9 +14,11 @@ import java.awt.Event;
 import java.awt.PopupMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -36,16 +41,19 @@ import visorimagenes.Visor;
  */
 public class Inicio extends javax.swing.JFrame {
     private FileManager fileManagerInstance;
+     
       visorimagenes.Visor casa;
       JPopupMenu popupMenuUser = new JPopupMenu();
       JPopupMenu popupMenuoff = new JPopupMenu();
+       CrearcionUsuarios CU = new CrearcionUsuarios();
+       public static String nombreIngresado;
+       public String tipoIngresado;
 
     /**
      * Creates new form 
      */
     public Inicio() {
         initComponents();
-        this.getRootPane().putClientProperty("apple.awt.draggableWindowBackground", true);
 
         
         JMenuItem CreateUser = new JMenuItem("Crear Usuario");
@@ -70,12 +78,37 @@ public class Inicio extends javax.swing.JFrame {
         
                
         casa = new Visor();       
-        timer.start();   
+        timer.start(); 
+        
+        CreateUser.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+              
+              
+//                if ("Administrador".equals(tipoIngresado)) {
+                Usuarios.CrearcionUsuarios cre = new CrearcionUsuarios();
+                pantalladeinicio.add(cre).setVisible(true);
+                paneldeapps.setVisible(false);
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Esta opcion no esta disponible para usted!");
+//        }
+                
+            }
+        });
         
         off.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
                 System.exit(0);
+            }
+        });
+        
+        cerrarsesion.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+                 Login uwuntu = new Login();
+                 uwuntu.setVisible(true);
+                 dispose();
             }
         });
 
@@ -539,8 +572,10 @@ public class Inicio extends javax.swing.JFrame {
 
     private void ItunesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItunesActionPerformed
         // TODO add your handling code here:
-        player.PlayerMemo itunes = new PlayerMemo();
-        itunes.setVisible(true);
+//        player.PlayerMemo itunes = new PlayerMemo();
+        RedSocial.LogIn itunes = new LogIn(pantalladeinicio, nombreIngresado, tipoIngresado);
+//        itunes.setVisible(true);
+          pantalladeinicio.add(itunes).setVisible(true);
                 paneldeapps.setVisible(false);
 
     
@@ -678,9 +713,10 @@ public class Inicio extends javax.swing.JFrame {
 
     private void Itunes9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Itunes9ActionPerformed
         // TODO add your handling code here:
-        texteditor.Principal word = new texteditor.Principal();
+        Twitter.Login word = new Twitter.Login();
+        word.setVisible(true);
 //        setInternalFrameCenterLocation(word);
-       pantalladeinicio.add(word).setVisible(true);
+//       pantalladeinicio.add(word).setVisible(true);
 //        word.setVisible(true);
                 paneldeapps.setVisible(false);
         
@@ -698,26 +734,18 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-//        
-//        JPanel explorer = new JPanel();
-//        explorer.setLayout(new BorderLayout());
-//        add(explorer);
-//
-//         Crear una instancia de FileManager
-//        FileManager fileManager = new FileManager();
-//
-//         Obtener el contenedor de FileManager y agregarlo al panel explorer
-//        Container fileManagerContainer = fileManager.getGui();
-//        explorer.add(fileManagerContainer, BorderLayout.CENTER);
-//        add(explorer,BorderLayout.CENTER);
-//        
+        
+        
+        
          fileManagerInstance = new FileManager();
-        JFrame fileManagerFrame = new JFrame(FileManager.APP_TITLE);
-//                fileManagerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JInternalFrame fileManagerFrame = new JInternalFrame("Internal Frame", true, true, true, true);
+        paneldeapps.setVisible(false);
                 fileManagerFrame.setContentPane(fileManagerInstance.getGui());
                 fileManagerFrame.pack();
-                fileManagerFrame.setLocationByPlatform(true);
                 fileManagerFrame.setVisible(true);
+            
+           pantalladeinicio.add(fileManagerFrame).setVisible(true);
+                
 
           
        

@@ -1,10 +1,12 @@
 package Twitter;
+import java.awt.Color;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.RandomAccessFile;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,12 +22,19 @@ import javax.swing.JOptionPane;
  * @author juanf
  */
 public class CreaP extends javax.swing.JFrame implements Serializable,Interfaz {
-
+    private RandomAccessFile usuarios;
+    
+    private int edad;
+    private char generoselected;
+    private UsuarioT usertwit;
+//    UsuarioT usertwit=new UsuarioT();
     /**
      * Creates new form CreaP
      */
     public CreaP() {
         initComponents();
+        usertwit=new UsuarioT();
+//        ArrayList<UsuarioT> users = UsuarioT.obtenerUsuarios();
     }
 
     /**
@@ -76,6 +85,11 @@ public class CreaP extends javax.swing.JFrame implements Serializable,Interfaz {
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -155,49 +169,48 @@ public class CreaP extends javax.swing.JFrame implements Serializable,Interfaz {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         String nombre = JNombre.getText();
-        char genero = 'a';
+        String genero = "a";
         if (BotonM.isSelected()) {
-            genero = 'M';
+            genero = "M";
         } else if (BotonF.isSelected()) {
-            genero = 'F';
+            genero = "F";
         }
         String UserName = Jusername.getText();
         String Password = Jpassword.getText();
         Date fecha = new Date();
         SimpleDateFormat fechaF = new SimpleDateFormat("dd/MM/yy");
         fechaF.format(fecha);
-        int edad = (Integer) jSpinner1.getValue();
-        U.add(new UsuarioT(nombre, genero, UserName, Password, fecha, edad, true));
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("users.twc"));
-            outputStream.writeObject(U);
-        } catch (Exception e) {
-        }
-        File carpetaUsuario = new File(UserName);
-        if (!carpetaUsuario.exists()) {
-            carpetaUsuario.mkdir();
-        }
         
-        File archivoFollowing = new File(UserName + "/following.twc");
-        File archivoFollowers = new File(UserName + "/followers.twc");
-        File archivoTwits = new File(UserName + "/twits.twc");
+        int edad = (Integer) jSpinner1.getValue();
 
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(archivoFollowing));
+        System.out.println("user"+UserName+" contra "+Password);
+        
+            try {
+                
+//                usertwit.obtenerUsuarios();
+                
+                if(!usertwit.Existeuser(UserName)){
+                System.out.println("entra");
+                usertwit.agguser(nombre, genero, UserName, Password, edad, fechaF.toString(),true);
+                PantallaTwiter inicio = new PantallaTwiter();
+                inicio.setVisible(true);
+                 
+                }else{
 
-            outputStream = new ObjectOutputStream(new FileOutputStream(archivoFollowers));
+                JOptionPane.showMessageDialog(null, "Ya existe este usuario");
 
-            outputStream = new ObjectOutputStream(new FileOutputStream(archivoTwits));
-
-        } catch (IOException e) {
+            }
+            
+        } catch (Exception e) {
             e.printStackTrace();
+                System.out.println("paso error XD");
         }
-
-        JOptionPane.showMessageDialog(this, "Usuario creado con exito");
-        PantallaTwiter newframe = new PantallaTwiter();
-        newframe.setVisible(true);
-        this.dispose();
+            
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

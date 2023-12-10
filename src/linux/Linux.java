@@ -16,7 +16,7 @@ public class Linux {
     public static void main(String[] args) {
         // TODO code application logic here
        
-        Inicio uwuntu = new Inicio();
+        Login uwuntu = new Login();
         uwuntu.setVisible(true);
         
     }

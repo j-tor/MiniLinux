@@ -128,7 +128,10 @@ public class FileManager {
             detailView.add(tableScroll, BorderLayout.CENTER);
 
             // the File tree
-            DefaultMutableTreeNode root = createTreeNode(new File("C:/Users/aleja/OneDrive - Universidad Tecnologica Centroamericana/Universidad/Progra-2/Linux/src/Z"));
+        
+            String rutaDirectorioUsuario = "Z:/" + linux.Inicio.nombreIngresado;
+            DefaultMutableTreeNode root = createTreeNode(new File(rutaDirectorioUsuario));
+            
             treeModel = new DefaultTreeModel(root);
 
             TreeSelectionListener treeSelectionListener =
