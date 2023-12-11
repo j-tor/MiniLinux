@@ -40,7 +40,7 @@ public class CommandConsol extends JInternalFrame {
         setResizable(true); 
         setClosable(true);
 
-        currentDirectory = "C:/";
+        currentDirectory = "Z/";
         
         commandMap = new HashMap<>();
         commandMap.put("mkdir", "Create a new folder");

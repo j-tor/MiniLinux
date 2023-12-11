@@ -5,7 +5,7 @@
 package linux;
 
 
-import RedSocial.LogIn;
+
 import Usuarios.CrearcionUsuarios;
 
 import java.awt.Color;
@@ -581,9 +581,11 @@ public class Inicio extends javax.swing.JFrame {
     private void ItunesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItunesActionPerformed
         // TODO add your handling code here:
 //        player.PlayerMemo itunes = new PlayerMemo();
-        RedSocial.LogIn itunes = new LogIn(pantalladeinicio, nombreIngresado, tipoIngresado);
-//        itunes.setVisible(true);
-          pantalladeinicio.add(itunes).setVisible(true);
+        player.Spotify itunes = new Spotify();
+        itunes.setVisible(true);
+        itunes.toFront();
+        pantalladeinicio.add(itunes);
+               
                 paneldeapps.setVisible(false);
 
     
@@ -697,12 +699,14 @@ public class Inicio extends javax.swing.JFrame {
 
     private void Itunes8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Itunes8ActionPerformed
         // TODO add your handling code here:
-         player.Spotify itunes = new Spotify();
-        itunes.setVisible(true);
-        itunes.toFront();
-        pantalladeinicio.add(itunes);
-               
-                paneldeapps.setVisible(false);
+//        player.Spotify itunes = new Spotify();
+//        itunes.setVisible(true);
+//        itunes.toFront();
+//        pantalladeinicio.add(itunes);
+//               
+//                paneldeapps.setVisible(false);
+            JOptionPane.showMessageDialog(null, "Error: Aplicacion No instalada", "Error", JOptionPane.ERROR_MESSAGE);
+
 
     }//GEN-LAST:event_Itunes8ActionPerformed
 
