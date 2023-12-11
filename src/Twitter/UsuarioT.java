@@ -1,10 +1,12 @@
 package Twitter;
 
 import java.awt.Image;
+import java.io.BufferedReader;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -33,6 +35,7 @@ public class UsuarioT implements Serializable {
     boolean cuentaActiva;
     public RandomAccessFile registro;
     private static String userlog;
+    public static String actualuser;
 
     public UsuarioT() {
         try {
@@ -102,17 +105,20 @@ public class UsuarioT implements Serializable {
         return "";
     }
 
-    public void publicarT(String mensaje) {
+    
+      public void publicarT(String mensaje) {
         try {
-            String Cont = JOptionPane.showInputDialog("Marque el nombre del usuario que publica los datos", "");
-            registro = new RandomAccessFile("Usertwit/" + Cont + "/twits.twc", "rw");
+            RandomAccessFile registro = new RandomAccessFile("Usertwit/" + actualuser + "/twits.twc", "rw");
+            registro.seek(registro.length());
+//            registro.readUTF();
             registro.writeUTF(mensaje);
-            registro.close();
+            System.out.println("el usuario que publico el twitt"+actualuser);
 
         } catch (IOException e) {
             System.out.println("Erros");
         }
     }
+
     
     public void Settings(){
         
@@ -124,7 +130,7 @@ public class UsuarioT implements Serializable {
     
     public String displayH(String clave) {
 
-        String rutaCarpeta = "Usertwit";
+        String rutaCarpeta = "Usertwit/";
 
         File carpeta = new File(rutaCarpeta);
         String contF = "";
@@ -139,13 +145,16 @@ public class UsuarioT implements Serializable {
 
                     if (!archivo.getName().equals("user.twc")) {
 
-                        try (RandomAccessFile raf = new RandomAccessFile(archivo + "/twits.twc", "rw")) {
+                        try (RandomAccessFile raf = new RandomAccessFile(rutaCarpeta+actualuser + "/twits.twc", "rw")) {
                             String contenidoStr = raf.readUTF();
                             
                             if (contenidoStr.contains(clave)) {
                                 contF = contF + "\n" + contenidoStr;
                             }
 
+                        } catch (EOFException e) {
+
+                            System.out.println("lee todo el archivo");
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -160,6 +169,37 @@ public class UsuarioT implements Serializable {
             System.out.println("La ruta especificada no es una carpeta o no existe");
         }
         return "";
+    }
+    
+    
+
+    public String imprimirTwitsAuser() {
+        StringBuilder sb = new StringBuilder();
+
+        try {
+
+            String carpetaUsuario = carpetauser(actualuser);
+            String rutaArchivo = carpetaUsuario + "/twits.twc";
+
+   
+            if (new File(rutaArchivo).exists()) {
+ 
+                try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
+                    String linea;
+                    while ((linea = br.readLine()) != null) {
+                        sb.append("Usuario:"+actualuser+"\n");
+                        sb.append(linea).append("\n");
+                    }
+                }
+            } else {
+                sb.append("No hay twits para mostrar.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            sb.append("Error al leer los twits.");
+        }
+
+        return sb.toString();
     }
 
      public String displayI(String clave) {
@@ -179,16 +219,22 @@ public class UsuarioT implements Serializable {
 
                     if (!archivo.getName().equals("user.twc")) {
 
-                        try (RandomAccessFile raf = new RandomAccessFile(archivo + "/twits.twc", "rw")) {
+                        
+                        try (RandomAccessFile raf = new RandomAccessFile(rutaCarpeta+actualuser + "/twits.twc", "rw")) {
                             String contenidoStr = raf.readUTF();
                             
                             if (contenidoStr.contains(clave)) {
                                 contF = contF + "\n" + contenidoStr;
                             }
 
+
+                        }catch (EOFException e) {
+
+                            System.out.println("lee todo el archivo");
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                        
                     }
                 }
                 
@@ -269,6 +315,8 @@ public class UsuarioT implements Serializable {
             registro.readUTF();
             String usuario = registro.readUTF();
             String password = registro.readUTF();
+            actualuser=usuario;
+            System.out.println("actula"+actualuser);
             registro.readInt();
             registro.readUTF();
             registro.readBoolean();

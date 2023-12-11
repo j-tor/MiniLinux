@@ -59,6 +59,11 @@ public class PantallaTwiter extends javax.swing.JFrame implements Serializable,I
                 jButton2MouseClicked(evt);
             }
         });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("EditProfile");
 
@@ -205,7 +210,8 @@ public class PantallaTwiter extends javax.swing.JFrame implements Serializable,I
         UsuarioT A= new UsuarioT();
         String clave=JOptionPane.showInputDialog(this, "Marque la palabra clave");
         String B=A.displayH(clave);
-        jEditorPane1.setText(B);
+//        A.displayH(clave);
+        jEditorPane1.setText(clave);
     }//GEN-LAST:event_jButton4MouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
@@ -217,7 +223,14 @@ public class PantallaTwiter extends javax.swing.JFrame implements Serializable,I
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
+         UsuarioT usuario= new UsuarioT();
+         
+         jEditorPane1.setText(usuario.imprimirTwitsAuser());
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

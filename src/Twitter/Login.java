@@ -141,47 +141,48 @@ public class Login extends javax.swing.JFrame implements Interfaz {
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        UsuarioT A= new UsuarioT();
-        
-        String usuario = A.retornoU();
-        String contra = A.retornoC();
-        System.out.println(usuario);
-        System.out.println(contra);
-        if (usuario.contentEquals(Juser.getText())&&contra.contentEquals(contra)) {
-            JOptionPane.showMessageDialog(this, "Bienvenido");
-            PantallaTwiter menu = new PantallaTwiter();
-                    menu.setVisible(true);
-                    this.dispose();
-        }else{
-            JOptionPane.showMessageDialog(this, "Usuario incorrecto");
-        }
+//        UsuarioT A= new UsuarioT();
+//        
+//        String usuario = A.retornoU();
+//        String contra = A.retornoC();
+//        System.out.println(usuario);
+//        System.out.println(contra);
+//        if (usuario.contentEquals(Juser.getText())&&contra.contentEquals(contra)) {
+//            JOptionPane.showMessageDialog(this, "Bienvenido");
+//            
+//            PantallaTwiter menu = new PantallaTwiter();
+//                    menu.setVisible(true);
+//                    this.dispose();
+//        }else{
+//            JOptionPane.showMessageDialog(this, "Usuario incorrecto");
+//        }
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        // TODO add your handling code here:
-//        String user = Juser.getText();
-//        String contra = new String(Jcontra.getPassword());
-//
-//        if (Juser.getText().isEmpty() || Jcontra.getText().isEmpty()) {
-//
-//            JOptionPane.showMessageDialog(null, "llene todos los campos");
-//
-//        } else {
-//            System.out.println("entra aca");
-//            try {
-//                if (tweet.iniciosesion(user, contra)) {
-//                    System.out.println("enteo");
-//                    PantallaTwiter menu = new PantallaTwiter();
-//                    menu.setVisible(true);
-////                dispose();
-//                    this.dispose();
-//                }
-//
-//            } catch (IOException e) {
-//
-//                JOptionPane.showMessageDialog(null, "Usuario Inexistente");
-//            }
-//        }
+        // TODO add your handling code here:
+        String user = Juser.getText();
+        String contra = new String(Jcontra.getPassword());
+
+        if (Juser.getText().isEmpty() || Jcontra.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "llene todos los campos");
+
+        } else {
+            System.out.println("entra aca");
+            try {
+                if (tweet.iniciosesion(user, contra)) {
+                    System.out.println("enteo");
+                    PantallaTwiter menu = new PantallaTwiter();
+                    menu.setVisible(true);
+//                dispose();
+                    this.dispose();
+                }
+
+            } catch (IOException e) {
+
+                JOptionPane.showMessageDialog(null, "Usuario Inexistente");
+            }
+        }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
