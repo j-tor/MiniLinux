@@ -114,7 +114,7 @@ public class UsuarioT implements Serializable{
      public  boolean iniciosesion(String user, String contra) throws IOException{
          while(registro.getFilePointer() < registro.length()){
             registro.readUTF();
-            registro.readChar();
+            registro.readUTF();
             String usuario=registro.readUTF();
             String password=registro.readUTF();
             registro.readInt();

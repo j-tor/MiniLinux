@@ -168,12 +168,13 @@ public class Login extends javax.swing.JFrame implements Interfaz {
         JOptionPane.showMessageDialog(null, "llene todos los campos");
            
         }else{
-//            
+            System.out.println("entra aca");
           try{  
             if(tweet.iniciosesion(user, contra)){ 
-                PantallaTwiter menu=new PantallaTwiter();
+                System.out.println("enteo");
+                PantallaTwiter menu = new PantallaTwiter();
                 menu.setVisible(true);
-                dispose();
+//                dispose();
                 this.dispose();
             }
             
