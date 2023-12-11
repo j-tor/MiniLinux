@@ -183,7 +183,7 @@ public class CreaP extends javax.swing.JFrame implements Serializable,Interfaz {
         
         int edad = (Integer) jSpinner1.getValue();
 
-        System.out.println("user"+UserName+" contra "+Password);
+      
         
             try {
                 
@@ -192,9 +192,10 @@ public class CreaP extends javax.swing.JFrame implements Serializable,Interfaz {
                 if(!usertwit.Existeuser(UserName)){
                 System.out.println("entra");
                 usertwit.agguser(nombre, genero, UserName, Password, edad, fechaF.toString(),true);
+                U.add(usertwit);
                 PantallaTwiter inicio = new PantallaTwiter();
                 inicio.setVisible(true);
-                 
+                 this.dispose();
                 }else{
 
                 JOptionPane.showMessageDialog(null, "Ya existe este usuario");

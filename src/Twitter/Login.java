@@ -1,4 +1,5 @@
 package Twitter;
+
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
@@ -22,15 +23,16 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame implements Interfaz {
 //    private String user,contra;
+
     private UsuarioT tweet;
+
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
-        tweet =new UsuarioT();
-        
-       
+        tweet = new UsuarioT();
+
     }
 
     /**
@@ -50,9 +52,8 @@ public class Login extends javax.swing.JFrame implements Interfaz {
         jLabel4 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         Jcontra = new javax.swing.JPasswordField();
-        jButton3 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Bienvenido a twitter");
@@ -82,13 +83,6 @@ public class Login extends javax.swing.JFrame implements Interfaz {
             }
         });
 
-        jButton3.setText("jButton3");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -110,13 +104,8 @@ public class Login extends javax.swing.JFrame implements Interfaz {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(366, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(356, 356, 356))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addGap(297, 297, 297))))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(356, 356, 356))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,9 +116,7 @@ public class Login extends javax.swing.JFrame implements Interfaz {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(Juser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(Jcontra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -153,45 +140,49 @@ public class Login extends javax.swing.JFrame implements Interfaz {
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-     
-    
+        UsuarioT A= new UsuarioT();
+        
+        String usuario = A.retornoU();
+        String contra = A.retornoC();
+        System.out.println(usuario);
+        System.out.println(contra);
+        if (usuario.contentEquals(Juser.getText())&&contra.contentEquals(contra)) {
+            JOptionPane.showMessageDialog(this, "Bienvenido");
+            PantallaTwiter menu = new PantallaTwiter();
+                    menu.setVisible(true);
+                    this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(this, "Usuario incorrecto");
+        }
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        String user=Juser.getText();
-        String contra=new String(Jcontra.getPassword());
-         
-        if(Juser.getText().isEmpty() || Jcontra.getText().isEmpty() ){
-        
-        
-        JOptionPane.showMessageDialog(null, "llene todos los campos");
-           
-        }else{
-            System.out.println("entra aca");
-          try{  
-            if(tweet.iniciosesion(user, contra)){ 
-                System.out.println("enteo");
-                PantallaTwiter menu = new PantallaTwiter();
-                menu.setVisible(true);
-//                dispose();
-                this.dispose();
-            }
-            
-          }catch(IOException e){
-              
-             
-              JOptionPane.showMessageDialog(null, "Usuario Inexistente");
-          }
-        }
-       
-    }//GEN-LAST:event_jButton1ActionPerformed
+//        // TODO add your handling code here:
+//        String user = Juser.getText();
+//        String contra = new String(Jcontra.getPassword());
+//
+//        if (Juser.getText().isEmpty() || Jcontra.getText().isEmpty()) {
+//
+//            JOptionPane.showMessageDialog(null, "llene todos los campos");
+//
+//        } else {
+//            System.out.println("entra aca");
+//            try {
+//                if (tweet.iniciosesion(user, contra)) {
+//                    System.out.println("enteo");
+//                    PantallaTwiter menu = new PantallaTwiter();
+//                    menu.setVisible(true);
+////                dispose();
+//                    this.dispose();
+//                }
+//
+//            } catch (IOException e) {
+//
+//                JOptionPane.showMessageDialog(null, "Usuario Inexistente");
+//            }
+//        }
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        tweet.imprimirUsuarios();
-       
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -233,7 +224,6 @@ public class Login extends javax.swing.JFrame implements Interfaz {
     private javax.swing.JTextField Juser;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

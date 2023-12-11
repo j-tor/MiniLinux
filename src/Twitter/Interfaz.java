@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public interface Interfaz {
     ArrayList<UsuarioT> U = new ArrayList();
-
+    public int controlador=0;
  
     
     
