@@ -909,7 +909,7 @@ private void deleteFile() {
     }
 }
 
-
+//tabla de archivos 
 class FileTableModel extends AbstractTableModel {
 
     private File[] files;
