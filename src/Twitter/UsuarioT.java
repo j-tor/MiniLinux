@@ -113,7 +113,15 @@ public class UsuarioT implements Serializable {
             System.out.println("Erros");
         }
     }
-
+    
+    public void Settings(){
+        
+    }
+    
+    public void TimeLine(){
+        
+    }
+    
     public String displayH(String clave) {
 
         String rutaCarpeta = "Usertwit";
