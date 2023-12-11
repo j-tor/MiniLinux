@@ -58,7 +58,7 @@ public class UsuarioT implements Serializable {
 
     public String retornoU() {
         try {
-            registro.seek(0);
+//            registro.seek(0);
             while (registro.getFilePointer() < registro.length()) {
                 registro.readUTF();
                 registro.readUTF();
@@ -81,7 +81,7 @@ public class UsuarioT implements Serializable {
 
     public String retornoC() {
         try {
-            registro.seek(0);
+//            registro.seek(0);
             while (registro.getFilePointer() < registro.length()) {
                 registro.readUTF();
                 registro.readUTF();
@@ -133,7 +133,7 @@ public class UsuarioT implements Serializable {
 
                         try (RandomAccessFile raf = new RandomAccessFile(archivo + "/twits.twc", "rw")) {
                             String contenidoStr = raf.readUTF();
-                            System.out.println(contenidoStr);
+                            
                             if (contenidoStr.contains(clave)) {
                                 contF = contF + "\n" + contenidoStr;
                             }
@@ -143,7 +143,7 @@ public class UsuarioT implements Serializable {
                         }
                     }
                 }
-                System.out.println(contF);
+                
                 return contF;
             } else {
                 System.out.println("La carpeta está vacía o no se pueden listar los archivos");
@@ -173,7 +173,7 @@ public class UsuarioT implements Serializable {
 
                         try (RandomAccessFile raf = new RandomAccessFile(archivo + "/twits.twc", "rw")) {
                             String contenidoStr = raf.readUTF();
-                            System.out.println(contenidoStr);
+                            
                             if (contenidoStr.contains(clave)) {
                                 contF = contF + "\n" + contenidoStr;
                             }
@@ -183,7 +183,7 @@ public class UsuarioT implements Serializable {
                         }
                     }
                 }
-                System.out.println(contF);
+                
                 return contF;
             } else {
                 System.out.println("La carpeta está vacía o no se pueden listar los archivos");
