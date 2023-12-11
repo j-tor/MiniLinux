@@ -4,11 +4,9 @@
  */
 package linux;
 
-import Usuarios.SistemaArchivos;
+
 import Usuarios.Users;
 import java.awt.CardLayout;
-import java.awt.Image;
-import java.awt.Taskbar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.EOFException;
@@ -17,9 +15,6 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -31,13 +26,12 @@ import javax.swing.Timer;
 public class Login extends javax.swing.JFrame {
      String projectDir;
     public static String UserLoging;
+    public static String usertype;
     
     public File file = null;
     Inicio menu = new Inicio();
-    private CardLayout cardLayout;
     private static final String USUARIOS_FILE = "usuarios.dat";
     private Usuarios.Users User = new Users();
-
     /**
      * Creates new form Login
      */
@@ -75,6 +69,11 @@ public class Login extends javax.swing.JFrame {
         return UserLoging;
     }
 
+    public static String getUsertype() {
+        return usertype;
+    }
+     
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -107,7 +106,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        Password.setText("jPasswordField1");
+        Password.setText("admin");
         Password.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PasswordActionPerformed(evt);
@@ -187,24 +186,33 @@ public class Login extends javax.swing.JFrame {
 
         // Lógica de autenticación
         if (autenticarUsuario(usuario, contraseña)) {
-            UserLoging = usuario;
+            
+            UserLoging = obteneradmin(usuario);         
             JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
             linux.Inicio escritorio = new Inicio();
             escritorio.setVisible(true);
             Usuarios.SistemaArchivos.abrirSistemaDeArchivos(usuario);
+//            escritorio.nombreIngresado=usuario;
+//            escritorio.typoIngresado=obtenerTipoUsuarioDesdeArchivo(usuario);
+           
             this.dispose();
         } else {
+           
             JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error de autenticación", JOptionPane.ERROR_MESSAGE);
         }
+        
     }//GEN-LAST:event_LoginbottomActionPerformed
 
+    
+    
     private boolean autenticarUsuario(String usuario, String contraseña) {
         try (RandomAccessFile raf = new RandomAccessFile(USUARIOS_FILE, "rw")) {
             while (raf.getFilePointer() < raf.length()) {
                 long offset = raf.getFilePointer();
                 String storedUsuario = raf.readUTF();
                 String storedContraseña = raf.readUTF();
-
+                 
+        
                 if (storedUsuario.equals(usuario) && storedContraseña.equals(contraseña)) {
                     return true; 
                 }
@@ -217,6 +225,31 @@ public class Login extends javax.swing.JFrame {
         return false;
         
     }
+    
+    
+        private String obteneradmin(String usuario) {
+        try (RandomAccessFile raf = new RandomAccessFile(USUARIOS_FILE, "rw")) {
+            while (raf.getFilePointer() < raf.length()) {
+                long offset = raf.getFilePointer();
+                String storedUsuario = raf.readUTF();
+                String storedContraseña = raf.readUTF();               
+
+                if (storedUsuario.equals(usuario)) {
+                    
+                    return storedUsuario;
+                }
+                
+            }
+        } catch (EOFException e) {
+            return null;
+        } catch (IOException e) {
+
+        
+        }
+        // Usuario no encontrado
+        return null;
+    }
+
 
     /**
      * @param args the command line arguments
