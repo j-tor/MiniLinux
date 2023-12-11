@@ -47,7 +47,10 @@ public class Inicio extends javax.swing.JFrame {
       JPopupMenu popupMenuoff = new JPopupMenu();
        CrearcionUsuarios CU = new CrearcionUsuarios();
        public static String nombreIngresado;
-       public String tipoIngresado;
+       public static String tipoIngresado;
+       public static String typoIngresado;
+       Login log;
+
 
     /**
      * Creates new form 
@@ -82,17 +85,19 @@ public class Inicio extends javax.swing.JFrame {
           @Override
           public void actionPerformed(ActionEvent e) {
               
-              Usuarios.CrearcionUsuarios cre = new CrearcionUsuarios();
-                pantalladeinicio.add(cre).setVisible(true);
-                paneldeapps.setVisible(false);
-//            if (SistemaArchivos.esAdministrador(tipoIngresado)) {
-//                Usuarios.CrearcionUsuarios cre = new CrearcionUsuarios();
-//                pantalladeinicio.add(cre).setVisible(true);
-//                paneldeapps.setVisible(false);
-//            } else {
-//                 JOptionPane.showMessageDialog(null, "Error: Aplicacion en Uso", "Error", JOptionPane.INFORMATION_MESSAGE);
-//                System.out.println("no puedes");
-//            }
+             
+                
+               
+            if (log.UserLoging != null && log.UserLoging.equals("admin")) {
+           
+            Usuarios.CrearcionUsuarios cre = new CrearcionUsuarios();
+            pantalladeinicio.add(cre).setVisible(true);
+            paneldeapps.setVisible(false);
+            System.out.println("name" + log.UserLoging);
+        } else {
+           
+            JOptionPane.showMessageDialog(null, "No tienes permisos para crear usuarios.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
                 
 
                 
@@ -668,6 +673,8 @@ public class Inicio extends javax.swing.JFrame {
 
     private void Itunes6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Itunes6ActionPerformed
         // TODO add your handling code here:
+        System.out.println("usuario:"+nombreIngresado);
+        System.out.println("tipo:"+typoIngresado);
                 paneldeapps.setVisible(false);
 
             JOptionPane.showMessageDialog(null, "Error: Aplicacion en Uso", "Error", JOptionPane.ERROR_MESSAGE);
@@ -793,6 +800,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
         // TODO add your handling code here:
+        
         popupMenuUser.setVisible(true);
         popupMenuUser.show(evt.getComponent(), evt.getX(), evt.getY());
         
@@ -812,29 +820,7 @@ public class Inicio extends javax.swing.JFrame {
 
   
    
-    private static void mostrarDialogo(JFrame frame) {
-        Object[] opciones = {"Agregar cuenta", "Eliminar cuenta", "Cerrar sesión"};
-        int seleccion = JOptionPane.showOptionDialog(
-                frame,
-                "Selecciona una opción:",
-                "Opciones",
-                JOptionPane.YES_NO_CANCEL_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                opciones,
-                opciones[2]);
-
-        if (seleccion == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(frame, "Has seleccionado: Agregar cuenta");
-            
-        } else if (seleccion == JOptionPane.NO_OPTION) {
-            JOptionPane.showMessageDialog(frame, "Has seleccionado: Eliminar cuenta");
-            
-        } else if (seleccion == JOptionPane.CANCEL_OPTION) {
-            JOptionPane.showMessageDialog(frame, "Has seleccionado: Cerrar sesión");
-            System.exit(0);
-        }
-    }
+   
     
    /**
      * @param args the command line arguments

@@ -21,7 +21,7 @@ public class SistemaArchivos extends JFrame {
     private JTextField usuarioTextField;
     private JPasswordField passwordField;
     private Map<String, Usuario> usuarios;  // Mapa para almacenar la información de cada usuario
-    private static final int LONG_SIZE = 8;  // Tamaño de un long en bytes
+    public static final int LONG_SIZE = 8;  // Tamaño de un long en bytes
 
     public SistemaArchivos() {
         usuarios = new HashMap<>();  
@@ -54,9 +54,12 @@ public class SistemaArchivos extends JFrame {
         if (usuarios.containsKey(usuario)) {
              System.out.println("usario autenticado");
             Usuario storedUsuario = usuarios.get(usuario);
+             
             mostrarUbicacionArchivos(usuario);
             abrirSistemaDeArchivos(usuario);
             linux.Inicio.nombreIngresado=usuario;
+            linux.Inicio.typoIngresado=obtenerTipoUsuario(usuario);
+            
             return storedUsuario.getContraseña().equals(contraseña);
             
         }
@@ -64,30 +67,29 @@ public class SistemaArchivos extends JFrame {
     }
 
     public static void abrirSistemaDeArchivos(String usuario) {
-        System.out.println("no se que hace esto");
-        File directorioUsuario = new File("Z:/" + usuario);
+       
+        File directorioUsuario = new File("Z/" + usuario);
         if (!directorioUsuario.exists()) {
             directorioUsuario.mkdirs(); 
             System.out.println("si existe");
             
             
         }
-
-//        JOptionPane.showMessageDialog(null, "Sistema de archivos abierto para " + usuario, "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
+ 
     }
 
-       public void crearUsuario(String nuevoUsuario, String nuevaContraseña, String tipoUsuario) {
-//         
-            
+       public void crearUsuario(String nuevoUsuario, String nuevaContraseña) {
+
          nuevoUsuario = CrearcionUsuarios.nombrenuevo.getText();
-         nuevaContraseña = CrearcionUsuarios.Contranueva.getPassword().toString();
-         tipoUsuario = CrearcionUsuarios.Tipo.getSelectedItem().toString();
-        // Verifica si el usuario ya existe
+         nuevaContraseña = new String(CrearcionUsuarios.Contranueva.getPassword());
+           System.out.println("contra"+nuevaContraseña);
+         
+        // Verifica si el usuario existe
         if (usuarios.containsKey(nuevoUsuario)) {
             JOptionPane.showMessageDialog(this, "El usuario ya existe", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             // Agrega el nuevo usuario a la lista y guarda en el archivo binario
-           Usuario nuevoUsuarioObj = new Usuario(nuevoUsuario, nuevaContraseña, tipoUsuario);
+           Usuario nuevoUsuarioObj = new Usuario(nuevoUsuario, nuevaContraseña);
             usuarios.put(nuevoUsuario, nuevoUsuarioObj);
             guardarUsuarioEnArchivo(nuevoUsuarioObj);
             crearCarpetasIniciales(nuevoUsuario);
@@ -97,10 +99,11 @@ public class SistemaArchivos extends JFrame {
     }
 
     private void crearUsuarioAdmin() {       
-        System.out.println("se crearon admin");
+        
 
         if (!usuarios.containsKey("admin")) {
-            Usuario admin = new Usuario("admin", "admin", "Administrador");
+            System.out.println("se crearon admin");
+            Usuario admin = new Usuario("admin", "admin");
             usuarios.put("admin", admin);
             guardarUsuarioEnArchivo(admin);
         }
@@ -108,9 +111,9 @@ public class SistemaArchivos extends JFrame {
 
     private void crearCarpetasIniciales(String usuario) {
         System.out.println("se crearon carpetas");
-        File documentos = new File("Z:/" + usuario + "/Mis Documentos");
-        File musica = new File("Z:/" + usuario + "/Música");
-        File imagenes = new File("Z:/" + usuario + "/Mis Imágenes");
+        File documentos = new File("Z/" + usuario + "/Mis Documentos");
+        File musica = new File("Z/" + usuario + "/Música");
+        File imagenes = new File("Z/" + usuario + "/Mis Imágenes");
 
         documentos.mkdirs();
         musica.mkdirs();
@@ -120,18 +123,16 @@ public class SistemaArchivos extends JFrame {
     
     
     public static void mostrarUbicacionArchivos(String usuario) {
-    String rutaDocumentos = "Z:/" + usuario + "/Mis Documentos";
-    String rutaMusica = "Z:/" + usuario + "/Música";
-    String rutaImagenes = "Z:/" + usuario + "/Mis Imágenes";
+    String rutaDocumentos = "Z/" + usuario + "/Mis Documentos";
+    String rutaMusica = "Z/" + usuario + "/Música";
+    String rutaImagenes = "Z/" + usuario + "/Mis Imágenes";
 
     String mensaje = "Ubicación de carpetas y archivos para el usuario " + usuario + ":\n";
     mensaje += "Documentos: " + rutaDocumentos + "\n";
     mensaje += "Música: " + rutaMusica + "\n";
     mensaje += "Imágenes: " + rutaImagenes;
-    
-        System.out.println(mensaje);
+    System.out.println(mensaje);
 
-//    JOptionPane.showMessageDialog(null, mensaje, "Ubicación de Archivos", JOptionPane.INFORMATION_MESSAGE);
 }
 
 
@@ -140,7 +141,7 @@ public class SistemaArchivos extends JFrame {
         while (raf.getFilePointer() < raf.length()) {
             try {
                 System.out.println("me esta carganndo de los usarios");
-                Usuario usuario = new Usuario(raf.readUTF(), raf.readUTF(), raf.readUTF());
+                Usuario usuario = new Usuario(raf.readUTF(), raf.readUTF());
                 usuarios.put(usuario.getNombre(), usuario);
             } catch (EOFException e) {
                 
@@ -152,31 +153,53 @@ public class SistemaArchivos extends JFrame {
     }
 }
 
-
-
-
     private void guardarUsuarioEnArchivo(Usuario usuario) {
         try (RandomAccessFile raf = new RandomAccessFile("usuarios.dat", "rw")) {
             System.out.println("lo gaurdo en el archivo");
             raf.seek(raf.length()); 
             raf.writeUTF(usuario.getNombre());
-            raf.writeUTF(usuario.getContraseña());
-            raf.writeUTF(usuario.getTipo());
+            raf.writeUTF(usuario.getContraseña());         
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    
+    public  String obtenerTipoUsuario(String nombreUsuario) {
+        try (RandomAccessFile raf = new RandomAccessFile("usuarios.dat", "rw")) {
+        while (raf.getFilePointer() < raf.length()) {
+                long offset = raf.getFilePointer();
+                String storedUsuario = raf.readUTF();
+                String storedContraseña = raf.readUTF();
+                String storedTipo = raf.readUTF();
+
+                if (storedUsuario.equals(nombreUsuario)) {
+                    return storedTipo;
+                }
+            }
+        } catch (EOFException e) {
+
+        } catch (IOException e) {
+ 
+        }
+
+        return "Usuario no encontrado";
+    }
+    
+    
+    
+   
 
 
     private static class Usuario {
         private String nombre;
         private String contraseña;
-        private String tipo;
+      
+        
 
-        public Usuario(String nombre, String contraseña, String tipo) {
+        public Usuario(String nombre, String contraseña) {
             this.nombre = nombre;
             this.contraseña = contraseña;
-            this.tipo = tipo;
+            
         }
 
         public String getNombre() {
@@ -187,9 +210,13 @@ public class SistemaArchivos extends JFrame {
             return contraseña;
         }
 
-        public String getTipo() {
-            return tipo;
+        public void setContraseña(String contraseña) {
+            this.contraseña = contraseña;
         }
+        
+        
+
+      
     }
 }
 

@@ -4,6 +4,7 @@ package linux;
 aleja
  */
 
+import Usuarios.CrearcionUsuarios;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -31,6 +32,7 @@ import javax.swing.event.*;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.*;
 import javax.swing.tree.*;
+import static linux.Inicio.pantalladeinicio;
 import player.Spotify;
 
 
@@ -70,7 +72,7 @@ public class FileManager {
     private JPanel newFilePanel;
     private JRadioButton newTypeFile;
     private JTextField name;
-    
+    Login log;
    
     
 
@@ -106,11 +108,20 @@ public class FileManager {
             detailView.add(tableScroll, BorderLayout.CENTER);
 
             // el file choser
+            String rutaDirectorioUsuario;
+            if (log.UserLoging != null && log.UserLoging.equals("admin")) {
+           
+                rutaDirectorioUsuario = "Z/";
+                
+            } else {
+                rutaDirectorioUsuario = "Z/"+log.UserLoging ;
+               
+            }
         
-            String rutaDirectorioUsuario = "Z:/" + linux.Inicio.nombreIngresado;
-            DefaultMutableTreeNode root = createTreeNode(new File(rutaDirectorioUsuario));
+           DefaultMutableTreeNode root = createTreeNode(new File(rutaDirectorioUsuario));
+           treeModel = new DefaultTreeModel(root);
             
-            treeModel = new DefaultTreeModel(root);
+            
 
             TreeSelectionListener treeSelectionListener =
                     new TreeSelectionListener() {
@@ -561,7 +572,8 @@ private void deleteFile() {
                         fileTableModel.setFiles(files);
                         table.getSelectionModel().addListSelectionListener(listSelectionListener);
                         if (!cellSizesSet) {
-                            Icon icon = fileSystemView.getSystemIcon(files[0]);
+                            try {
+                                Icon icon = fileSystemView.getSystemIcon(files[0]);
 
                             table.setRowHeight(icon.getIconHeight() + rowIconPadding);
 
@@ -576,6 +588,9 @@ private void deleteFile() {
                             setColumnWidth(9, -1);
 
                             cellSizesSet = true;
+                            } catch (Exception e) {
+                            }
+                            
                         }
                     }
                 });
